@@ -1,0 +1,8 @@
+<svg width="240" height="60" viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(5, 12)">
+    <!-- Abstract Tech Icon -->
+    <path d="M 16 0 L 32 8 L 32 24 L 16 32 L 0 24 L 0 8 Z" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2" stroke-linejoin="round" />
+    <path d="M 16 16 L 32 8 M 16 16 L 16 32 M 16 16 L 0 8" stroke="#1a56db" stroke-width="2" stroke-linecap="round" />
+  </g>
+  <text x="50" y="42" font-family="'Inter', 'Geist', 'Segoe UI', sans-serif" font-size="28" font-weight="800" fill="#1e293b" letter-spacing="-0.5">ProjectVala</text>
+</svg>

@@ -1,0 +1,4476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Citiline Technologies Pvt. Ltd. | IT & Consulting</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        /*─────────────────────────────────────────────────
+  TOKENS
+─────────────────────────────────────────────────*/
+        :root {
+            --blue: #1A56DB;
+            --blue-mid: #2563EB;
+            --blue-light: #EFF6FF;
+            --blue-lighter: #F0F7FF;
+            --accent: #0EA5E9;
+            --accent-light: #E0F2FE;
+            --navy: #0F1E45;
+            --body: #374151;
+            --muted: #6B7280;
+            --border: #E5E7EB;
+            --bg: #FFFFFF;
+            --bg2: #F9FAFB;
+            --bg3: #F3F4F6;
+            --grad: linear-gradient(135deg, #1A56DB 0%, #0EA5E9 100%);
+            --grad-soft: linear-gradient(135deg, #EFF6FF 0%, #E0F2FE 100%);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .04);
+            --shadow: 0 4px 16px rgba(26, 86, 219, .1);
+            --shadow-lg: 0 12px 40px rgba(26, 86, 219, .15);
+            --radius: 14px;
+            --radius-sm: 8px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--body);
+            overflow-x: hidden
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--blue);
+            border-radius: 3px
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        ul {
+            list-style: none
+        }
+
+        button {
+            cursor: pointer;
+            font-family: inherit
+        }
+
+        /*─────────────────────────────────────────────────
+  PAGES
+─────────────────────────────────────────────────*/
+        .page {
+            display: none;
+            animation: pageIn .5s cubic-bezier(.16, 1, .3, 1)
+        }
+
+        .page.active {
+            display: block
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(22px) scale(.99)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1)
+            }
+        }
+
+        /* ── CURSOR FOLLOWER ── */
+        #cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--blue);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform .1s;
+        }
+
+        #cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(26, 86, 219, .45);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: left .12s ease, top .12s ease, width .25s, height .25s, opacity .25s;
+        }
+
+        body:hover #cursor-ring {
+            opacity: 1
+        }
+
+        /* ── PARTICLE CANVAS ── */
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: .55;
+        }
+
+        .hero {
+            position: relative
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1
+        }
+
+        /* ── FLOATING ORBS ── */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+            animation: orbDrift 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 320px;
+            height: 320px;
+            background: rgba(26, 86, 219, .1);
+            top: -10%;
+            right: 5%;
+            animation-delay: 0s
+        }
+
+        .orb-2 {
+            width: 220px;
+            height: 220px;
+            background: rgba(14, 165, 233, .12);
+            bottom: 10%;
+            left: 2%;
+            animation-delay: -3s
+        }
+
+        .orb-3 {
+            width: 180px;
+            height: 180px;
+            background: rgba(99, 102, 241, .08);
+            top: 40%;
+            right: 25%;
+            animation-delay: -5s
+        }
+
+        @keyframes orbDrift {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1)
+            }
+
+            33% {
+                transform: translate(20px, -30px) scale(1.08)
+            }
+
+            66% {
+                transform: translate(-15px, 20px) scale(.94)
+            }
+        }
+
+        /* ── PAGE TRANSITION OVERLAY ── */
+        #page-transition {
+            position: fixed;
+            inset: 0;
+            z-index: 9997;
+            background: var(--grad);
+            clip-path: circle(0% at 50% 50%);
+            transition: clip-path .5s cubic-bezier(.77, 0, .18, 1);
+            pointer-events: none;
+        }
+
+        #page-transition.enter {
+            clip-path: circle(150% at 50% 50%)
+        }
+
+        #page-transition.exit {
+            clip-path: circle(0% at 50% 50%)
+        }
+
+        /* ── RIPPLE ── */
+        .ripple-host {
+            position: relative;
+            overflow: hidden
+        }
+
+        .ripple-wave {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .35);
+            transform: scale(0);
+            animation: rippleAnim .65s linear;
+            pointer-events: none;
+        }
+
+        @keyframes rippleAnim {
+            to {
+                transform: scale(4);
+                opacity: 0
+            }
+        }
+
+        /* ── SHIMMER SKELETON ── */
+        @keyframes shimmer {
+            0% {
+                background-position: -600px 0
+            }
+
+            100% {
+                background-position: 600px 0
+            }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, #f0f4ff 25%, #dde8ff 50%, #f0f4ff 75%);
+            background-size: 600px 100%;
+            animation: shimmer 1.4s infinite linear;
+            border-radius: 8px;
+        }
+
+        /* ── TYPED CURSOR ── */
+        #typed-wrap {
+            display: inline;
+            position: relative
+        }
+
+        #typed-word {
+            color: var(--blue)
+        }
+
+        #typed-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background: var(--blue);
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink-cursor .7s step-end infinite;
+        }
+
+        @keyframes blink-cursor {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0
+            }
+        }
+
+        /* ── MAGNETIC BUTTON ── */
+        .btn-magnetic {
+            transition: transform .25s cubic-bezier(.23, 1, .32, 1), box-shadow .25s
+        }
+
+        /* ── COUNTER ODOMETER ── */
+        .counter-val {
+            display: inline-block
+        }
+
+        /* ── PROGRESS BARS ── */
+        .skill-bar-wrap {
+            margin-bottom: 1.1rem
+        }
+
+        .skill-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: .4rem
+        }
+
+        .skill-bar-track {
+            height: 7px;
+            background: var(--border);
+            border-radius: 100px;
+            overflow: hidden
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: var(--grad);
+            width: 0;
+            transition: width 1.2s cubic-bezier(.16, 1, .3, 1)
+        }
+
+        /* ── TILT CARDS ── */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform .08s linear
+        }
+
+        /* ── GLOW PULSE on hover ── */
+        .glow-on-hover {
+            transition: box-shadow .3s
+        }
+
+        .glow-on-hover:hover {
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, .18), var(--shadow-lg)
+        }
+
+        /* ── GRADIENT TEXT ANIMATE ── */
+        .grad-animate {
+            background: linear-gradient(270deg, #1A56DB, #0EA5E9, #6366F1, #1A56DB);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradShift 5s ease infinite;
+        }
+
+        @keyframes gradShift {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        /* ── STAGGER CHILDREN ── */
+        .stagger-child {
+            opacity: 0;
+            transform: translateY(24px)
+        }
+
+        .stagger-child.vis {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity .55s ease, transform .55s ease
+        }
+
+        /* ── MORPH BLOB ── */
+        .morph-blob {
+            position: absolute;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(26, 86, 219, .08), rgba(14, 165, 233, .1));
+            animation: morphBlob 9s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        @keyframes morphBlob {
+            0% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%
+            }
+
+            50% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%
+            }
+
+            100% {
+                border-radius: 50% 50% 40% 60% / 40% 70% 50% 60%
+            }
+        }
+
+        /* ── NOTIFICATION TOAST ── */
+        #toast {
+            position: fixed;
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--navy);
+            color: #fff;
+            padding: .75rem 1.6rem;
+            border-radius: 100px;
+            font-size: .85rem;
+            font-weight: 600;
+            z-index: 9990;
+            opacity: 0;
+            transition: all .4s cubic-bezier(.16, 1, .3, 1);
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .2);
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0)
+        }
+
+        /* ── SCROLL PROGRESS BAR ── */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            z-index: 1001;
+            background: var(--grad);
+            width: 0%;
+            transition: width .1s linear;
+        }
+
+        /* ── SECTION DIVIDER WAVE ── */
+        .wave-divider {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0
+        }
+
+        .wave-divider svg {
+            display: block;
+            width: 100%
+        }
+
+        /* ── ICON BOUNCE ── */
+        @keyframes iconBounce {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            40% {
+                transform: translateY(-8px)
+            }
+
+            60% {
+                transform: translateY(-4px)
+            }
+        }
+
+        .icon-bounce {
+            animation: iconBounce 2.2s ease-in-out infinite
+        }
+
+        /* ── CARD SHINE OVERLAY ── */
+        .shine-card {
+            position: relative;
+            overflow: hidden
+        }
+
+        .shine-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .35), transparent);
+            transform: skewX(-20deg);
+            transition: left .55s ease;
+        }
+
+        .shine-card:hover::after {
+            left: 125%
+        }
+
+        /* ── FLOATING LABELS ANIMATION ── */
+        .form-group {
+            position: relative
+        }
+
+        .form-input:focus+.form-label,
+        .form-input:not(:placeholder-shown)+.form-label {
+            color: var(--blue);
+        }
+
+        /* ── PARTICLES (canvas based) extra ── */
+        #bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: .4;
+        }
+
+        /*─────────────────────────────────────────────────
+  NAVBAR
+─────────────────────────────────────────────────*/
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, .9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow .3s;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, .08)
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            cursor: pointer
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: .95rem;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(26, 86, 219, .35);
+        }
+
+        .logo-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy)
+        }
+
+        .logo-name span {
+            color: var(--blue)
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem
+        }
+
+        .nav-links a {
+            font-size: .875rem;
+            font-weight: 500;
+            color: var(--muted);
+            position: relative;
+            transition: color .2s;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--grad);
+            border-radius: 2px;
+            transition: width .25s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--blue)
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%
+        }
+
+        .nav-cta {
+            background: var(--grad);
+            color: #fff !important;
+            padding: .55rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 600 !important;
+            box-shadow: var(--shadow);
+            transition: all .25s !important;
+        }
+
+        .nav-cta::after {
+            display: none !important
+        }
+
+        .nav-cta:hover {
+            box-shadow: var(--shadow-lg) !important;
+            transform: translateY(-1px)
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: all .3s
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 65px;
+            left: 0;
+            right: 0;
+            z-index: 998;
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 5%;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+        }
+
+        .mobile-menu.open {
+            display: flex
+        }
+
+        .mobile-menu a {
+            font-size: .95rem;
+            font-weight: 500;
+            color: var(--body);
+            padding: .5rem 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        /*─────────────────────────────────────────────────
+  COMMON SECTION STYLES
+─────────────────────────────────────────────────*/
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 5%
+        }
+
+        .section {
+            padding: 6rem 0
+        }
+
+        .section-alt {
+            background: var(--bg2)
+        }
+
+        .section-blue {
+            background: var(--blue-lighter)
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: var(--blue-light);
+            color: var(--blue);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .35rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--blue);
+            border-radius: 50%
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1.15;
+            margin-bottom: .9rem;
+        }
+
+        .section-title .hl {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-sub {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 560px
+        }
+
+        .section-head {
+            text-align: center;
+            margin-bottom: 3.5rem
+        }
+
+        .section-head .section-sub {
+            margin: 0 auto
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .75rem 1.8rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: .9rem;
+            border: none;
+            transition: all .25s;
+        }
+
+        .btn-primary {
+            background: var(--grad);
+            color: #fff;
+            box-shadow: var(--shadow)
+        }
+
+        .btn-primary:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px)
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--blue);
+            border: 1.5px solid var(--blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--blue-light)
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--blue);
+            box-shadow: var(--shadow)
+        }
+
+        .btn-white:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px)
+        }
+
+        /* Cards */
+        .card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all .3s cubic-bezier(.4, 0, .2, 1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: rgba(26, 86, 219, .2)
+        }
+
+        /* Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .6s ease, transform .6s ease
+        }
+
+        .reveal.vis {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-28px);
+            transition: opacity .6s ease, transform .6s ease
+        }
+
+        .reveal-left.vis {
+            opacity: 1;
+            transform: translateX(0)
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(28px);
+            transition: opacity .6s ease, transform .6s ease
+        }
+
+        .reveal-right.vis {
+            opacity: 1;
+            transform: translateX(0)
+        }
+
+        /* Page header banner */
+        .page-banner {
+            background: var(--grad);
+            padding: 9rem 5% 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-banner::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, .12) 0%, transparent 70%);
+        }
+
+        .page-banner h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: .8rem;
+        }
+
+        .page-banner p {
+            color: rgba(255, 255, 255, .82);
+            font-size: 1.05rem;
+            max-width: 520px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.75
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            font-size: .82rem;
+            color: rgba(255, 255, 255, .65)
+        }
+
+        .breadcrumb span {
+            color: #fff;
+            font-weight: 600
+        }
+
+        /* Grid helpers */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem
+        }
+
+        .grid-auto {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 1.8rem
+        }
+
+        /*─────────────────────────────────────────────────
+  ① HOME PAGE
+─────────────────────────────────────────────────*/
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 5rem;
+            background: linear-gradient(160deg, #F0F7FF 0%, #fff 55%, #F0F9FF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            right: -10%;
+            top: 10%;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(14, 165, 233, .1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1180px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: var(--blue-light);
+            color: var(--blue);
+            border: 1px solid rgba(26, 86, 219, .2);
+            border-radius: 100px;
+            padding: .4rem 1.1rem;
+            font-size: .77rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: fadeDown .7s ease forwards;
+        }
+
+        .badge-pulse {
+            width: 7px;
+            height: 7px;
+            background: var(--blue);
+            border-radius: 50%;
+            animation: blink 1.5s infinite
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .25
+            }
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-14px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1.1;
+            margin-bottom: 1.3rem;
+            animation: fadeUp .8s .2s ease both;
+        }
+
+        .hero-sub {
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2.2rem;
+            animation: fadeUp .8s .4s ease both
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeUp .8s .6s ease both
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            animation: fadeUp .8s .8s ease both;
+            flex-wrap: wrap;
+        }
+
+        .hstat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hstat-label {
+            font-size: .78rem;
+            color: var(--muted);
+            margin-top: .2rem;
+            font-weight: 500
+        }
+
+        /* Hero visual */
+        .hero-visual {
+            position: relative;
+            animation: fadeUp .9s .3s ease both
+        }
+
+        .hero-card-main {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(26, 86, 219, .14);
+            border: 1px solid rgba(26, 86, 219, .1);
+        }
+
+        .hcard-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(26, 86, 219, .3);
+        }
+
+        .hcard-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .5rem
+        }
+
+        .hcard-sub {
+            font-size: .85rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        .hcard-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin-top: 1.2rem
+        }
+
+        .tag {
+            background: var(--blue-light);
+            color: var(--blue);
+            border-radius: 6px;
+            padding: .3rem .8rem;
+            font-size: .75rem;
+            font-weight: 600;
+        }
+
+        .hero-float {
+            position: absolute;
+            background: #fff;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .1);
+            border: 1px solid var(--border);
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            animation: floatY 3.5s ease-in-out infinite;
+        }
+
+        .hero-float.f1 {
+            top: 10%;
+            right: -5%;
+            animation-delay: 0s
+        }
+
+        .hero-float.f2 {
+            bottom: 12%;
+            left: -8%;
+            animation-delay: 1.75s
+        }
+
+        @keyframes floatY {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-10px)
+            }
+        }
+
+        .float-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: var(--grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            color: #fff
+        }
+
+        /* Ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            background: var(--navy);
+            padding: .9rem 0;
+            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)
+        }
+
+        .ticker-inner {
+            display: flex;
+            gap: 2.5rem;
+            width: max-content;
+            animation: ticker 22s linear infinite
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            white-space: nowrap;
+            color: rgba(255, 255, 255, .65);
+            font-size: .82rem;
+            font-weight: 500;
+        }
+
+        .ticker-sep {
+            color: var(--accent);
+            font-size: .6rem
+        }
+
+        /* Services home */
+        .svc-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.3rem;
+            transition: all .3s;
+        }
+
+        .card:hover .svc-icon {
+            background: var(--grad);
+            transform: scale(1.1)
+        }
+
+        .card:hover .svc-icon span {
+            filter: brightness(10)
+        }
+
+        .svc-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .6rem
+        }
+
+        .svc-desc {
+            color: var(--muted);
+            font-size: .875rem;
+            line-height: 1.7
+        }
+
+        .svc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            margin-top: 1rem;
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--blue);
+            transition: gap .2s;
+        }
+
+        .card:hover .svc-link {
+            gap: .7rem
+        }
+
+        /* Why us */
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center
+        }
+
+        .why-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.8rem
+        }
+
+        .why-num {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--grad);
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            font-size: .9rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(26, 86, 219, .3);
+        }
+
+        .why-text h4 {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .3rem;
+            font-size: .95rem
+        }
+
+        .why-text p {
+            color: var(--muted);
+            font-size: .87rem;
+            line-height: 1.65
+        }
+
+        .why-visual {
+            background: var(--grad);
+            border-radius: 24px;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-visual::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 50%;
+        }
+
+        .wv-metric {
+            background: rgba(255, 255, 255, .15);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            backdrop-filter: blur(8px)
+        }
+
+        .wv-metric-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff
+        }
+
+        .wv-metric-label {
+            font-size: .8rem;
+            color: rgba(255, 255, 255, .75);
+            margin-top: .2rem
+        }
+
+        /* Testimonials home */
+        .testi-card {
+            background: var(--bg2);
+            border: 1px solid var(--border)
+        }
+
+        .testi-stars {
+            color: #F59E0B;
+            font-size: .9rem;
+            margin-bottom: 1rem;
+            letter-spacing: .1em
+        }
+
+        .testi-text {
+            color: var(--body);
+            font-size: .9rem;
+            line-height: 1.75;
+            font-style: italic;
+            margin-bottom: 1.3rem
+        }
+
+        .testi-author {
+            display: flex;
+            align-items: center;
+            gap: .8rem
+        }
+
+        .testi-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--grad);
+            color: #fff;
+            font-weight: 700;
+            font-size: .9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .testi-name {
+            font-weight: 700;
+            font-size: .88rem;
+            color: var(--navy)
+        }
+
+        .testi-role {
+            font-size: .77rem;
+            color: var(--muted)
+        }
+
+        /* CTA home */
+        .cta-home {
+            background: var(--grad);
+            border-radius: 24px;
+            padding: 5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin: 0 5% 6rem;
+        }
+
+        .cta-home::before,
+        .cta-home::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .cta-home::before {
+            width: 400px;
+            height: 400px;
+            top: -40%;
+            left: -10%
+        }
+
+        .cta-home::after {
+            width: 300px;
+            height: 300px;
+            bottom: -50%;
+            right: -5%
+        }
+
+        .cta-home>* {
+            position: relative;
+            z-index: 1
+        }
+
+        .cta-home h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: .9rem
+        }
+
+        .cta-home p {
+            color: rgba(255, 255, 255, .8);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.75
+        }
+
+        /*─────────────────────────────────────────────────
+  ② ABOUT PAGE
+─────────────────────────────────────────────────*/
+        .about-story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center
+        }
+
+        .about-img-block {
+            position: relative;
+            background: var(--grad-soft);
+            border-radius: 24px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid rgba(26, 86, 219, .12);
+        }
+
+        .about-img-icon {
+            font-size: 6rem;
+            opacity: .12;
+            position: absolute
+        }
+
+        .about-img-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .1);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .about-img-badges {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .aib {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(26, 86, 219, .1);
+        }
+
+        .aib-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .aib-label {
+            font-size: .74rem;
+            color: var(--muted);
+            margin-top: .2rem;
+            font-weight: 500
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem
+        }
+
+        .value-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all .3s;
+            box-shadow: var(--shadow-sm);
+            border-top: 3px solid var(--blue);
+        }
+
+        .value-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px)
+        }
+
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem
+        }
+
+        .value-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .5rem
+        }
+
+        .value-desc {
+            font-size: .87rem;
+            color: var(--muted);
+            line-height: 1.65
+        }
+
+        .milestones {
+            display: flex;
+            flex-direction: column;
+            gap: 0
+        }
+
+        .milestone {
+            display: flex;
+            gap: 1.5rem;
+            padding: 2rem 0;
+            border-left: 2px solid var(--border);
+            padding-left: 2rem;
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .milestone::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 2.2rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--blue);
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, .2);
+        }
+
+        .m-year {
+            font-family: 'Syne', sans-serif;
+            font-size: .85rem;
+            font-weight: 800;
+            color: var(--blue);
+            min-width: 60px;
+            padding-top: .15rem
+        }
+
+        .m-title {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .3rem
+        }
+
+        .m-desc {
+            font-size: .87rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        /*─────────────────────────────────────────────────
+  ③ SERVICES PAGE
+─────────────────────────────────────────────────*/
+        .service-detail-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all .3s;
+        }
+
+        .service-detail-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: rgba(26, 86, 219, .2)
+        }
+
+        .sdc-header {
+            background: var(--grad-soft);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sdc-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 14px rgba(26, 86, 219, .3);
+            flex-shrink: 0;
+        }
+
+        .sdc-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy)
+        }
+
+        .sdc-body {
+            padding: 2rem
+        }
+
+        .sdc-desc {
+            font-size: .9rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem
+        }
+
+        .sdc-features {
+            display: flex;
+            flex-direction: column;
+            gap: .65rem
+        }
+
+        .sdc-feat {
+            display: flex;
+            align-items: flex-start;
+            gap: .7rem;
+            font-size: .86rem;
+            color: var(--body)
+        }
+
+        .sdc-feat-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--blue-light);
+            border: 1.5px solid rgba(26, 86, 219, .3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .sdc-feat-dot svg {
+            width: 9px;
+            height: 9px;
+            fill: none;
+            stroke: var(--blue);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round
+        }
+
+        /*─────────────────────────────────────────────────
+  ④ PORTFOLIO PAGE
+─────────────────────────────────────────────────*/
+        .filter-tabs {
+            display: flex;
+            gap: .6rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem
+        }
+
+        .ftab {
+            padding: .5rem 1.2rem;
+            border-radius: 100px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .ftab.active,
+        .ftab:hover {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: #fff
+        }
+
+        .project-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all .3s;
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px)
+        }
+
+        .pc-thumb {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pc-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .project-card:hover .pc-overlay {
+            opacity: 1
+        }
+
+        .pc-view {
+            color: #fff;
+            font-size: .85rem;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, .6);
+            padding: .5rem 1.2rem;
+            border-radius: 8px
+        }
+
+        .pc-body {
+            padding: 1.5rem
+        }
+
+        .pc-cat {
+            font-size: .73rem;
+            font-weight: 700;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: .5rem
+        }
+
+        .pc-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .5rem
+        }
+
+        .pc-desc {
+            font-size: .84rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 1rem
+        }
+
+        .pc-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem
+        }
+
+        .pc-tag {
+            background: var(--bg3);
+            color: var(--muted);
+            border-radius: 5px;
+            padding: .25rem .65rem;
+            font-size: .73rem;
+            font-weight: 600
+        }
+
+        /*─────────────────────────────────────────────────
+  ⑤ TEAM PAGE
+─────────────────────────────────────────────────*/
+        .team-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all .3s;
+        }
+
+        .team-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px)
+        }
+
+        .team-avatar {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: var(--grad-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-avatar-inner {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--grad);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            box-shadow: 0 8px 24px rgba(26, 86, 219, .3);
+        }
+
+        .team-info {
+            padding: 1.5rem
+        }
+
+        .team-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .25rem
+        }
+
+        .team-role {
+            font-size: .82rem;
+            color: var(--blue);
+            font-weight: 600;
+            margin-bottom: .7rem
+        }
+
+        .team-desc {
+            font-size: .83rem;
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 1rem
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: .5rem
+        }
+
+        .tsoc {
+            width: 32px;
+            height: 32px;
+            border-radius: 7px;
+            background: var(--bg3);
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .75rem;
+            font-weight: 700;
+            transition: all .2s;
+        }
+
+        .tsoc:hover {
+            background: var(--blue);
+            color: #fff
+        }
+
+        /*─────────────────────────────────────────────────
+  ⑥ BLOG PAGE
+─────────────────────────────────────────────────*/
+        .blog-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all .3s;
+        }
+
+        .blog-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px)
+        }
+
+        .blog-thumb {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .blog-body {
+            padding: 1.7rem
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: .8rem
+        }
+
+        .blog-cat {
+            background: var(--blue-light);
+            color: var(--blue);
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            padding: .25rem .7rem;
+            border-radius: 5px;
+        }
+
+        .blog-date {
+            font-size: .78rem;
+            color: var(--muted)
+        }
+
+        .blog-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .6rem;
+            line-height: 1.4
+        }
+
+        .blog-excerpt {
+            font-size: .87rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 1.2rem
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: .6rem
+        }
+
+        .ba-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--grad);
+            color: #fff;
+            font-size: .72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ba-name {
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--body)
+        }
+
+        .blog-read {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            color: var(--blue);
+            font-size: .83rem;
+            font-weight: 700;
+            float: right;
+            margin-top: .5rem;
+            transition: gap .2s
+        }
+
+        .blog-card:hover .blog-read {
+            gap: .7rem
+        }
+
+        /*─────────────────────────────────────────────────
+  ⑦ CONTACT PAGE
+─────────────────────────────────────────────────*/
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3.5rem;
+            align-items: start
+        }
+
+        .contact-info-card {
+            background: var(--grad);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            color: #fff;
+            position: sticky;
+            top: 90px;
+        }
+
+        .ci-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: .6rem
+        }
+
+        .ci-sub {
+            font-size: .9rem;
+            color: rgba(255, 255, 255, .78);
+            line-height: 1.7;
+            margin-bottom: 2rem
+        }
+
+        .ci-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start
+        }
+
+        .ci-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .15);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .ci-label {
+            font-size: .75rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .65);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: .2rem
+        }
+
+        .ci-value {
+            font-size: .92rem;
+            font-weight: 600;
+            color: #fff
+        }
+
+        .ci-socials {
+            display: flex;
+            gap: .7rem;
+            margin-top: 2rem
+        }
+
+        .cis-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, .15);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .85rem;
+            font-weight: 700;
+            transition: background .2s;
+        }
+
+        .cis-btn:hover {
+            background: rgba(255, 255, 255, .3)
+        }
+
+        /* Contact form */
+        .contact-form-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow)
+        }
+
+        .form-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: .4rem
+        }
+
+        .form-sub {
+            font-size: .88rem;
+            color: var(--muted);
+            margin-bottom: 2rem
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            margin-bottom: 1.2rem
+        }
+
+        .form-label {
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--navy)
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: .75rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: .9rem;
+            color: var(--body);
+            transition: border-color .2s, box-shadow .2s;
+            background: #fff;
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, .1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 130px
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: .95rem;
+            border-radius: var(--radius-sm);
+            background: var(--grad);
+            color: #fff;
+            border: none;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all .25s;
+        }
+
+        .form-submit:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px)
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: var(--blue-light);
+            border-radius: var(--radius-sm);
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+        .form-success.show {
+            display: block
+        }
+
+        /*─────────────────────────────────────────────────
+  ⑧ PRICING PAGE (part of services)
+─────────────────────────────────────────────────*/
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin-top: 1rem
+        }
+
+        .pricing-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.2rem;
+            box-shadow: var(--shadow-sm);
+            transition: all .3s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px)
+        }
+
+        .pricing-card.popular {
+            border-color: var(--blue);
+            box-shadow: 0 8px 40px rgba(26, 86, 219, .2);
+            transform: scale(1.03);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.03) translateY(-5px)
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--grad);
+            color: #fff;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .35rem 1.2rem;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        .plan-name {
+            font-family: 'Syne', sans-serif;
+            font-size: .9rem;
+            font-weight: 800;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            margin-bottom: .8rem
+        }
+
+        .plan-price {
+            margin-bottom: 1.5rem
+        }
+
+        .plan-amt {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--navy)
+        }
+
+        .plan-per {
+            font-size: .85rem;
+            color: var(--muted);
+            font-weight: 500
+        }
+
+        .plan-desc {
+            font-size: .85rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.65
+        }
+
+        .plan-features {
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+            margin-bottom: 2rem
+        }
+
+        .pf-item {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            font-size: .86rem;
+            color: var(--body)
+        }
+
+        .pf-check {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--blue-light);
+            border: 1.5px solid rgba(26, 86, 219, .25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .pf-check svg {
+            width: 9px;
+            fill: none;
+            stroke: var(--blue);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round
+        }
+
+        .pf-x {
+            color: var(--muted);
+            opacity: .4
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: .85rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: .9rem;
+            cursor: pointer;
+            border: none;
+            transition: all .25s;
+        }
+
+        /*─────────────────────────────────────────────────
+  ⑨ CAREERS PAGE
+─────────────────────────────────────────────────*/
+        .job-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: all .3s;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .job-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+            border-color: rgba(26, 86, 219, .2)
+        }
+
+        .job-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .job-dept {
+            font-size: .73rem;
+            font-weight: 700;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: .3rem
+        }
+
+        .job-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .5rem
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem;
+            margin-bottom: .7rem
+        }
+
+        .job-badge {
+            background: var(--bg3);
+            color: var(--muted);
+            border-radius: 5px;
+            padding: .25rem .65rem;
+            font-size: .75rem;
+            font-weight: 600;
+        }
+
+        .job-desc {
+            font-size: .87rem;
+            color: var(--muted);
+            line-height: 1.65
+        }
+
+        .job-apply {
+            margin-left: auto;
+            flex-shrink: 0;
+            padding: .6rem 1.4rem;
+            border-radius: 8px;
+            background: var(--blue-light);
+            color: var(--blue);
+            border: none;
+            font-weight: 700;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+
+        .job-apply:hover {
+            background: var(--blue);
+            color: #fff
+        }
+
+        .perks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem
+        }
+
+        .perk-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all .3s;
+        }
+
+        .perk-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px)
+        }
+
+        .perk-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem
+        }
+
+        .perk-title {
+            font-family: 'Syne', sans-serif;
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .4rem
+        }
+
+        .perk-desc {
+            font-size: .84rem;
+            color: var(--muted);
+            line-height: 1.65
+        }
+
+        /*─────────────────────────────────────────────────
+  FOOTER
+─────────────────────────────────────────────────*/
+        footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, .7);
+            padding: 5rem 0 2rem;
+            position: relative;
+            z-index: 1;
+            margin-top: 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.4fr;
+            gap: 3rem;
+            margin-bottom: 4rem
+        }
+
+        .footer-brand p {
+            font-size: .88rem;
+            line-height: 1.75;
+            margin-top: 1rem;
+            max-width: 270px
+        }
+
+        .footer-social {
+            display: flex;
+            gap: .7rem;
+            margin-top: 1.5rem
+        }
+
+        .fsoc {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .08);
+            color: rgba(255, 255, 255, .65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .8rem;
+            font-weight: 700;
+            transition: all .2s;
+        }
+
+        .fsoc:hover {
+            background: var(--blue);
+            color: #fff
+        }
+
+        .footer-col h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: .65rem
+        }
+
+        .footer-col ul a,
+        .footer-col ul button {
+            color: rgba(255, 255, 255, .6);
+            font-size: .87rem;
+            transition: color .2s;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .footer-col ul a:hover,
+        .footer-col ul button:hover {
+            color: var(--accent)
+        }
+
+        .fc-contact-item {
+            display: flex;
+            gap: .7rem;
+            font-size: .87rem;
+            margin-bottom: .9rem;
+            align-items: flex-start;
+            color: rgba(255, 255, 255, .6)
+        }
+
+        .fc-icon {
+            color: var(--accent);
+            margin-top: 2px
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-size: .8rem
+        }
+
+        .footer-bottom .accent {
+            color: var(--accent);
+            font-weight: 600
+        }
+
+        /* WhatsApp */
+        .wa-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 900;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #25D366;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 6px 24px rgba(37, 211, 102, .45);
+            transition: all .3s;
+            text-decoration: none;
+        }
+
+        .wa-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 10px 32px rgba(37, 211, 102, .55)
+        }
+
+        .wa-tooltip {
+            position: fixed;
+            bottom: 5.6rem;
+            right: 2rem;
+            z-index: 899;
+            background: #fff;
+            color: var(--navy);
+            font-size: .8rem;
+            font-weight: 600;
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all .25s;
+            pointer-events: none;
+        }
+
+        .wa-btn:hover+.wa-tooltip,
+        .wa-tooltip:hover {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /*─────────────────────────────────────────────────
+  RESPONSIVE
+─────────────────────────────────────────────────*/
+        @media(max-width:900px) {
+
+            .hero-inner,
+            .about-story,
+            .why-grid,
+            .contact-grid,
+            .about-grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero-visual {
+                display: none
+            }
+
+            .grid-2,
+            .grid-3,
+            .grid-4,
+            .footer-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr
+            }
+
+            .form-row {
+                grid-template-columns: 1fr
+            }
+
+            .nav-links {
+                display: none
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .contact-info-card {
+                position: static
+            }
+
+            .pricing-card.popular {
+                transform: scale(1)
+            }
+
+            .pricing-card.popular:hover {
+                transform: translateY(-5px)
+            }
+        }
+
+        @media(max-width:600px) {
+            .section {
+                padding: 4rem 0
+            }
+
+            .job-card {
+                flex-direction: column
+            }
+
+            .job-apply {
+                margin-left: 0
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress"></div>
+    <!-- Page transition overlay -->
+    <div id="page-transition"></div>
+    <!-- Custom cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <!-- Background ambient particles -->
+    <canvas id="bg-particles"></canvas>
+    <!-- Toast notification -->
+    <div id="toast"></div>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="nav-logo" onclick="showPage('home')">
+            <div class="logo-mark">CT</div>
+            <span class="logo-name">Citiline <span>Tech</span></span>
+        </div>
+        <div class="nav-links">
+            <a onclick="showPage('home')" data-page="home">Home</a>
+            <a onclick="showPage('about')" data-page="about">About</a>
+            <a onclick="showPage('services')" data-page="services">Services</a>
+            <a onclick="showPage('portfolio')" data-page="portfolio">Portfolio</a>
+            <a onclick="showPage('team')" data-page="team">Team</a>
+            <a onclick="showPage('blog')" data-page="blog">Blog</a>
+            <a onclick="showPage('careers')" data-page="careers">Careers</a>
+            <a onclick="showPage('contact')" data-page="contact" class="nav-cta">Contact Us</a>
+        </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a onclick="showPage('home');toggleMobile()">Home</a>
+        <a onclick="showPage('about');toggleMobile()">About</a>
+        <a onclick="showPage('services');toggleMobile()">Services</a>
+        <a onclick="showPage('portfolio');toggleMobile()">Portfolio</a>
+        <a onclick="showPage('team');toggleMobile()">Team</a>
+        <a onclick="showPage('blog');toggleMobile()">Blog</a>
+        <a onclick="showPage('careers');toggleMobile()">Careers</a>
+        <a onclick="showPage('contact');toggleMobile()" class="btn btn-primary"
+            style="text-align:center;justify-content:center">Contact Us</a>
+    </div>
+
+    <!--════════════════════════════════════════════════
+    PAGE: HOME
+════════════════════════════════════════════════-->
+    <div id="page-home" class="page active">
+
+        <!-- Hero -->
+        <section class="hero">
+            <canvas id="hero-canvas"></canvas>
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+            <div class="morph-blob" style="width:500px;height:500px;right:-100px;top:-80px"></div>
+            <div class="hero-inner">
+                <div>
+                    <div class="hero-badge stagger-child"><span class="badge-pulse"></span>Trusted IT &amp; Consulting
+                        Partner</div>
+                    <h1 class="hero-title stagger-child">Powering Your<br /><span class="grad-animate">Digital
+                            Growth</span><br />with <span id="typed-wrap"><span id="typed-word"></span><span
+                                id="typed-cursor"></span></span></h1>
+                    <p class="hero-sub stagger-child">Citiline Technologies Pvt. Ltd. delivers cutting-edge software
+                        development, cloud solutions, cybersecurity, and strategic IT consulting — built for the
+                        businesses of tomorrow.</p>
+                    <div class="hero-btns stagger-child">
+                        <button class="btn btn-primary btn-magnetic ripple-host" onclick="showPage('services')">Explore
+                            Services ↗</button>
+                        <button class="btn btn-outline btn-magnetic ripple-host" onclick="showPage('contact')">Free
+                            Consultation</button>
+                    </div>
+                    <div class="hero-stats stagger-child">
+                        <div>
+                            <div class="hstat-num counter-val" data-count="200" data-suffix="+">0+</div>
+                            <div class="hstat-label">Projects Delivered</div>
+                        </div>
+                        <div>
+                            <div class="hstat-num counter-val" data-count="50" data-suffix="+">0+</div>
+                            <div class="hstat-label">Happy Clients</div>
+                        </div>
+                        <div>
+                            <div class="hstat-num counter-val" data-count="8" data-suffix="">0</div>
+                            <div class="hstat-label">Years of Experience</div>
+                        </div>
+                        <div>
+                            <div class="hstat-num counter-val" data-count="99" data-suffix="%">0%</div>
+                            <div class="hstat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card-main shine-card glow-on-hover">
+                        <div class="hcard-icon icon-bounce">⚡</div>
+                        <div class="hcard-title">Full-Stack IT Solutions</div>
+                        <div class="hcard-sub">From ideation to deployment — we handle every layer of your technology
+                            stack with precision and expertise.</div>
+                        <div class="hcard-tags">
+                            <span class="tag">Cloud</span><span class="tag">AI / ML</span><span
+                                class="tag">Security</span>
+                            <span class="tag">DevOps</span><span class="tag">ERP</span><span class="tag">Mobile</span>
+                        </div>
+                    </div>
+                    <div class="hero-float f1">
+                        <div class="float-icon">☁️</div>Cloud Migration
+                    </div>
+                    <div class="hero-float f2">
+                        <div class="float-icon">🛡️</div>99.9% Uptime SLA
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Ticker -->
+        <div class="ticker-wrap">
+            <div class="ticker-inner" id="ticker-inner"></div>
+        </div>
+
+        <!-- Services -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Our Expertise</div>
+                    <h2 class="section-title">Comprehensive <span class="hl">IT Services</span></h2>
+                    <p class="section-sub">We cover the full spectrum of technology services your business needs to
+                        thrive in the digital era.</p>
+                </div>
+                <div class="grid-auto">
+                    <div class="card reveal">
+                        <div class="svc-icon"><span>☁️</span></div>
+                        <h3 class="svc-title">Cloud Infrastructure</h3>
+                        <p class="svc-desc">Scalable cloud architecture on AWS, Azure & GCP. Migration, optimization,
+                            and 24/7 managed services.</p><a class="svc-link" onclick="showPage('services')">Learn more
+                            →</a>
+                    </div>
+                    <div class="card reveal">
+                        <div class="svc-icon"><span>💻</span></div>
+                        <h3 class="svc-title">Software Development</h3>
+                        <p class="svc-desc">Custom web, mobile, and enterprise applications built with modern stacks —
+                            from MVP to production.</p><a class="svc-link" onclick="showPage('services')">Learn more
+                            →</a>
+                    </div>
+                    <div class="card reveal">
+                        <div class="svc-icon"><span>🔒</span></div>
+                        <h3 class="svc-title">Cybersecurity</h3>
+                        <p class="svc-desc">End-to-end security audits, penetration testing, compliance frameworks, and
+                            real-time threat monitoring.</p><a class="svc-link" onclick="showPage('services')">Learn
+                            more →</a>
+                    </div>
+                    <div class="card reveal">
+                        <div class="svc-icon"><span>📊</span></div>
+                        <h3 class="svc-title">IT Consulting</h3>
+                        <p class="svc-desc">Strategic technology advisory and digital transformation roadmaps aligned to
+                            your business goals.</p><a class="svc-link" onclick="showPage('services')">Learn more →</a>
+                    </div>
+                    <div class="card reveal">
+                        <div class="svc-icon"><span>🤖</span></div>
+                        <h3 class="svc-title">AI & Data Analytics</h3>
+                        <p class="svc-desc">ML models, BI dashboards, and data pipelines that convert raw data into
+                            actionable business insights.</p><a class="svc-link" onclick="showPage('services')">Learn
+                            more →</a>
+                    </div>
+                    <div class="card reveal">
+                        <div class="svc-icon"><span>🔧</span></div>
+                        <h3 class="svc-title">Managed IT Support</h3>
+                        <p class="svc-desc">Proactive monitoring, helpdesk, and infrastructure management so you can
+                            focus on core business.</p><a class="svc-link" onclick="showPage('services')">Learn more
+                            →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us -->
+        <section class="section">
+            <div class="container">
+                <div class="why-grid">
+                    <div class="reveal-left">
+                        <div class="eyebrow"><span class="eyebrow-dot"></span>Why Citiline</div>
+                        <h2 class="section-title">Technology Partners <span class="hl">You Can Trust</span></h2>
+                        <p class="section-sub" style="margin-bottom:2rem">We don't just deliver projects — we build
+                            long-term partnerships that drive measurable business value.</p>
+                        <div class="why-item">
+                            <div class="why-num">1</div>
+                            <div class="why-text">
+                                <h4>Certified Professionals</h4>
+                                <p>Team of 50+ certified IT professionals across cloud, security, AI, and consulting
+                                    domains.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-num">2</div>
+                            <div class="why-text">
+                                <h4>On-Time, On-Budget Delivery</h4>
+                                <p>Agile delivery methodology with transparent communication and zero-surprise billing.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-num">3</div>
+                            <div class="why-text">
+                                <h4>Pan-India + Global Reach</h4>
+                                <p>Offices in Jaipur with remote delivery capability for clients across India, UAE, and
+                                    beyond.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-num">4</div>
+                            <div class="why-text">
+                                <h4>Post-Deployment Support</h4>
+                                <p>Dedicated support teams ensuring your systems stay optimized and secure 24×7.</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="showPage('about')">Learn About Us →</button>
+                    </div>
+                    <div class="reveal-right">
+                        <div class="why-visual">
+                            <div class="wv-metric">
+                                <div class="wv-metric-num">200+</div>
+                                <div class="wv-metric-label">Successful Projects Delivered</div>
+                            </div>
+                            <div class="wv-metric">
+                                <div class="wv-metric-num">99.9%</div>
+                                <div class="wv-metric-label">Average Client Satisfaction Score</div>
+                            </div>
+                            <div class="wv-metric">
+                                <div class="wv-metric-num">40%</div>
+                                <div class="wv-metric-label">Average Cost Reduction for Clients</div>
+                            </div>
+                            <div class="wv-metric">
+                                <div class="wv-metric-num">8 Yrs</div>
+                                <div class="wv-metric-label">Industry Experience &amp; Expertise</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section section-blue">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Client Voices</div>
+                    <h2 class="section-title">What Our <span class="hl">Clients Say</span></h2>
+                </div>
+                <div class="grid-3">
+                    <div class="card testi-card reveal">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">"Citiline transformed our entire IT infrastructure. Their cloud migration
+                            was flawless and our operational costs dropped by 40%."</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar">RK</div>
+                            <div>
+                                <div class="testi-name">Rajesh Kumar</div>
+                                <div class="testi-role">CTO, NexaTech Solutions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card testi-card reveal">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">"Their consulting team helped us define a 3-year digital roadmap. The
+                            strategic clarity we gained was truly invaluable."</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar">PM</div>
+                            <div>
+                                <div class="testi-name">Priya Mehta</div>
+                                <div class="testi-role">Director, Orion Finserv</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card testi-card reveal">
+                        <div class="testi-stars">★★★★★</div>
+                        <p class="testi-text">"The custom ERP Citiline built handles 10x our previous volume — delivered
+                            on time and within budget. Exceptional work."</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar">AS</div>
+                            <div>
+                                <div class="testi-name">Arun Sharma</div>
+                                <div class="testi-role">MD, GlobalMart Retail</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section">
+            <div class="cta-home reveal">
+                <div class="eyebrow" style="background:rgba(255,255,255,.18);color:#fff;border-color:transparent"><span
+                        class="eyebrow-dot" style="background:#fff"></span>Get Started Today</div>
+                <h2>Ready to Transform Your<br />Business with Technology?</h2>
+                <p>Schedule a free consultation with our experts and discover how Citiline Technologies can accelerate
+                    your digital growth.</p>
+                <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+                    <button class="btn btn-white" onclick="showPage('contact')">📧 Contact Us</button>
+                    <button class="btn"
+                        style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.4)"
+                        onclick="showPage('services')">View Services →</button>
+                </div>
+            </div>
+        </section>
+
+        <footer-component></footer-component>
+    </div>
+
+    <!--════════════════════════════════════════════════
+    PAGE: ABOUT
+════════════════════════════════════════════════-->
+    <div id="page-about" class="page">
+        <div class="page-banner">
+            <div class="breadcrumb"><a onclick="showPage('home')" style="cursor:pointer">Home</a> › <span>About
+                    Us</span></div>
+            <h1>About Citiline Technologies</h1>
+            <p>Built on trust, driven by innovation. We are your dedicated technology partner for digital
+                transformation.</p>
+        </div>
+
+        <section class="section">
+            <div class="container">
+                <div class="about-story">
+                    <div class="reveal-left">
+                        <div class="about-img-block">
+                            <div class="about-img-icon">🏢</div>
+                            <div class="about-img-badges">
+                                <div class="aib">
+                                    <div class="aib-num">8+</div>
+                                    <div class="aib-label">Years Active</div>
+                                </div>
+                                <div class="aib">
+                                    <div class="aib-num">50+</div>
+                                    <div class="aib-label">Team Members</div>
+                                </div>
+                                <div class="aib">
+                                    <div class="aib-num">200+</div>
+                                    <div class="aib-label">Projects Done</div>
+                                </div>
+                                <div class="aib">
+                                    <div class="aib-num">15+</div>
+                                    <div class="aib-label">Industries Served</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal-right">
+                        <div class="eyebrow"><span class="eyebrow-dot"></span>Our Story</div>
+                        <h2 class="section-title">Technology That <span class="hl">Makes a Difference</span></h2>
+                        <p style="color:var(--muted);line-height:1.8;margin-bottom:1.2rem">Citiline Technologies Private
+                            Limited was founded with a singular vision: to make enterprise-grade technology accessible
+                            to businesses of all sizes. Headquartered in Jaipur, Rajasthan, we have grown from a small
+                            IT consulting firm into a full-spectrum technology services company.</p>
+                        <p style="color:var(--muted);line-height:1.8;margin-bottom:1.2rem">Over eight years, we have
+                            partnered with startups, SMEs, and large enterprises across fintech, retail, healthcare,
+                            manufacturing, and education — delivering solutions that don't just solve today's problems
+                            but prepare businesses for tomorrow.</p>
+                        <p style="color:var(--muted);line-height:1.8;margin-bottom:2rem">Our team of 50+ certified
+                            professionals brings together deep expertise in cloud computing, software engineering,
+                            cybersecurity, AI, and strategic consulting — all under one roof.</p>
+                        <button class="btn btn-primary" onclick="showPage('contact')">Partner With Us →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Our Values</div>
+                    <h2 class="section-title">What <span class="hl">Drives Us</span></h2>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card reveal">
+                        <div class="value-icon">🎯</div>
+                        <h3 class="value-title">Client First</h3>
+                        <p class="value-desc">Every decision we make is anchored in what creates the most value for our
+                            clients — long-term relationships over short-term transactions.</p>
+                    </div>
+                    <div class="value-card reveal">
+                        <div class="value-icon">💡</div>
+                        <h3 class="value-title">Innovation</h3>
+                        <p class="value-desc">We stay ahead of the technology curve so our clients don't have to —
+                            continuously learning and adopting what works best.</p>
+                    </div>
+                    <div class="value-card reveal">
+                        <div class="value-icon">🤝</div>
+                        <h3 class="value-title">Integrity</h3>
+                        <p class="value-desc">Transparent pricing, honest timelines, and clear communication — we say
+                            what we mean and deliver what we promise.</p>
+                    </div>
+                    <div class="value-card reveal">
+                        <div class="value-icon">⚡</div>
+                        <h3 class="value-title">Excellence</h3>
+                        <p class="value-desc">High standards are non-negotiable. From the first line of code to the
+                            final deployment, quality defines everything we do.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Our Journey</div>
+                    <h2 class="section-title">Key <span class="hl">Milestones</span></h2>
+                </div>
+                <div style="max-width:640px;margin:0 auto">
+                    <div class="milestones reveal">
+                        <div class="milestone">
+                            <div class="m-year">2016</div>
+                            <div>
+                                <div class="m-title">Founded in Jaipur</div>
+                                <div class="m-desc">Started as a 5-person IT consulting firm focused on SME digital
+                                    transformation in Rajasthan.</div>
+                            </div>
+                        </div>
+                        <div class="milestone">
+                            <div class="m-year">2018</div>
+                            <div>
+                                <div class="m-title">Cloud Division Launch</div>
+                                <div class="m-desc">Expanded into cloud infrastructure services, achieving AWS and Azure
+                                    Partner status.</div>
+                            </div>
+                        </div>
+                        <div class="milestone">
+                            <div class="m-year">2020</div>
+                            <div>
+                                <div class="m-title">50+ Clients Milestone</div>
+                                <div class="m-desc">Crossed 50 active enterprise clients; expanded team to 30+
+                                    professionals across 3 offices.</div>
+                            </div>
+                        </div>
+                        <div class="milestone">
+                            <div class="m-year">2022</div>
+                            <div>
+                                <div class="m-title">AI & Data Practice</div>
+                                <div class="m-desc">Launched dedicated AI/ML and data analytics division serving BFSI
+                                    and retail clients.</div>
+                            </div>
+                        </div>
+                        <div class="milestone">
+                            <div class="m-year">2024</div>
+                            <div>
+                                <div class="m-title">200+ Projects Delivered</div>
+                                <div class="m-desc">Crossed 200 successful project deliveries with a 99.9% client
+                                    satisfaction score.</div>
+                            </div>
+                        </div>
+                        <div class="milestone">
+                            <div class="m-year">2025</div>
+                            <div>
+                                <div class="m-title">International Expansion</div>
+                                <div class="m-desc">Commenced operations for clients in UAE and Southeast Asia with
+                                    dedicated offshore delivery teams.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Our Expertise</div>
+                    <h2 class="section-title">Technology <span class="hl">Proficiency</span></h2>
+                    <p class="section-sub">Our team's skill depth across the domains that matter most to our clients.
+                    </p>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:860px;margin:0 auto"
+                    class="reveal">
+                    <div>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar-label"><span>Cloud & DevOps</span><span>95%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar-label"><span>Software Development</span><span>92%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-width="92%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar-label"><span>Cybersecurity</span><span>88%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-width="88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar-label"><span>AI & Data Analytics</span><span>85%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar-label"><span>IT Consulting</span><span>97%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-width="97%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar-wrap">
+                            <div class="skill-bar-label"><span>Managed Services</span><span>90%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" data-width="90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer-component></footer-component>
+    </div>
+    ════════════════════════════════════════════════-->
+    <div id="page-services" class="page">
+        <div class="page-banner">
+            <div class="breadcrumb"><a onclick="showPage('home')" style="cursor:pointer">Home</a> ›
+                <span>Services</span></div>
+            <h1>Our IT Services</h1>
+            <p>End-to-end technology solutions designed to solve real business challenges and drive measurable results.
+            </p>
+        </div>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>What We Offer</div>
+                    <h2 class="section-title">Full-Spectrum <span class="hl">Technology Services</span></h2>
+                </div>
+                <div class="grid-auto">
+                    <div class="service-detail-card reveal">
+                        <div class="sdc-header">
+                            <div class="sdc-icon">☁️</div>
+                            <div class="sdc-name">Cloud Infrastructure</div>
+                        </div>
+                        <div class="sdc-body">
+                            <p class="sdc-desc">Scalable, secure, cost-optimized cloud environments on AWS, Azure, and
+                                Google Cloud Platform — designed for your workload.</p>
+                            <div class="sdc-features">
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Cloud architecture design & setup
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>On-premises to cloud migration
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Multi-cloud & hybrid strategy
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>24×7 cloud operations & monitoring
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-detail-card reveal">
+                        <div class="sdc-header">
+                            <div class="sdc-icon">💻</div>
+                            <div class="sdc-name">Software Development</div>
+                        </div>
+                        <div class="sdc-body">
+                            <p class="sdc-desc">Custom-built software solutions — web portals, mobile apps, SaaS
+                                platforms, and enterprise systems.</p>
+                            <div class="sdc-features">
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Web & mobile application development
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>ERP & CRM system development
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>API development & integration
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>UI/UX design & prototyping
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-detail-card reveal">
+                        <div class="sdc-header">
+                            <div class="sdc-icon">🔒</div>
+                            <div class="sdc-name">Cybersecurity</div>
+                        </div>
+                        <div class="sdc-body">
+                            <p class="sdc-desc">Comprehensive security solutions that protect your data, systems, and
+                                reputation from modern cyber threats.</p>
+                            <div class="sdc-features">
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Security audits & vulnerability assessment
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Penetration testing
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>ISO 27001 / GDPR compliance
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>SOC & real-time threat monitoring
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-detail-card reveal">
+                        <div class="sdc-header">
+                            <div class="sdc-icon">📊</div>
+                            <div class="sdc-name">IT Consulting</div>
+                        </div>
+                        <div class="sdc-body">
+                            <p class="sdc-desc">Strategic advisory that bridges the gap between business goals and
+                                technology execution.</p>
+                            <div class="sdc-features">
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Digital transformation roadmaps
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>IT governance & ITIL frameworks
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Technology stack assessment
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Vendor evaluation & selection
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-detail-card reveal">
+                        <div class="sdc-header">
+                            <div class="sdc-icon">🤖</div>
+                            <div class="sdc-name">AI & Data Analytics</div>
+                        </div>
+                        <div class="sdc-body">
+                            <p class="sdc-desc">Transform raw data into decisions with AI-powered analytics, predictive
+                                models, and intelligent automation.</p>
+                            <div class="sdc-features">
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Machine learning model development
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Business intelligence dashboards
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Data pipeline engineering
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>NLP & computer vision solutions
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-detail-card reveal">
+                        <div class="sdc-header">
+                            <div class="sdc-icon">🔧</div>
+                            <div class="sdc-name">Managed IT Support</div>
+                        </div>
+                        <div class="sdc-body">
+                            <p class="sdc-desc">Proactive IT management, helpdesk, and infrastructure monitoring so your
+                                business never misses a beat.</p>
+                            <div class="sdc-features">
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>24×7 helpdesk & remote support
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Network & server management
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>Backup & disaster recovery
+                                </div>
+                                <div class="sdc-feat">
+                                    <div class="sdc-feat-dot"><svg viewBox="0 0 12 12">
+                                            <polyline points="2,6 5,9 10,3" />
+                                        </svg></div>SLA-backed performance reporting
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
+        <section class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Pricing Plans</div>
+                    <h2 class="section-title">Transparent <span class="hl">Pricing</span></h2>
+                    <p class="section-sub">No hidden fees. Choose the plan that fits your business — or talk to us for a
+                        custom quote.</p>
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-card reveal">
+                        <div class="plan-name">Starter</div>
+                        <div class="plan-price"><span class="plan-amt">₹15K</span><span class="plan-per"> / month</span>
+                        </div>
+                        <p class="plan-desc">Perfect for startups and small businesses taking their first step into
+                            managed IT.</p>
+                        <div class="plan-features">
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Up to 10 Users Supported
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Basic Cloud Setup (1 Server)
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Helpdesk Support (Business Hours)
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Monthly Security Scan
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check pf-x" style="background:var(--bg3)">✕</div><span
+                                    style="color:var(--muted)">Dedicated Account Manager</span>
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check pf-x" style="background:var(--bg3)">✕</div><span
+                                    style="color:var(--muted)">Custom Software Development</span>
+                            </div>
+                        </div>
+                        <button class="plan-btn btn-outline" onclick="showPage('contact')"
+                            style="border:1.5px solid var(--blue);color:var(--blue);background:transparent">Get
+                            Started</button>
+                    </div>
+                    <div class="pricing-card popular reveal">
+                        <div class="popular-badge">⭐ Most Popular</div>
+                        <div class="plan-name">Professional</div>
+                        <div class="plan-price"><span class="plan-amt">₹45K</span><span class="plan-per"> / month</span>
+                        </div>
+                        <p class="plan-desc">Ideal for growing businesses that need robust IT support and cloud
+                            infrastructure.</p>
+                        <div class="plan-features">
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Up to 50 Users Supported
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Full Cloud Infrastructure (3 Servers)
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>24×7 Priority Helpdesk Support
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Weekly Security Monitoring
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Dedicated Account Manager
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check pf-x" style="background:var(--bg3)">✕</div><span
+                                    style="color:var(--muted)">Custom Software Development</span>
+                            </div>
+                        </div>
+                        <button class="plan-btn btn-primary" onclick="showPage('contact')"
+                            style="background:var(--grad);color:#fff;box-shadow:var(--shadow)">Get Started</button>
+                    </div>
+                    <div class="pricing-card reveal">
+                        <div class="plan-name">Enterprise</div>
+                        <div class="plan-price"><span class="plan-amt">Custom</span></div>
+                        <p class="plan-desc">Tailored for large enterprises with complex technology needs and custom
+                            development requirements.</p>
+                        <div class="plan-features">
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Unlimited Users
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Multi-Cloud Architecture
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>24×7 Dedicated Support Team
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Real-Time Security Operations
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Dedicated Account Manager
+                            </div>
+                            <div class="pf-item">
+                                <div class="pf-check"><svg viewBox="0 0 12 12">
+                                        <polyline points="2,6 5,9 10,3" />
+                                    </svg></div>Custom Software Development
+                            </div>
+                        </div>
+                        <button class="plan-btn btn-outline" onclick="showPage('contact')"
+                            style="border:1.5px solid var(--blue);color:var(--blue);background:transparent">Contact
+                            Sales</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer-component></footer-component>
+    </div>
+
+    <!--════════════════════════════════════════════════
+    PAGE: PORTFOLIO
+════════════════════════════════════════════════-->
+    <div id="page-portfolio" class="page">
+        <div class="page-banner">
+            <div class="breadcrumb"><a onclick="showPage('home')" style="cursor:pointer">Home</a> ›
+                <span>Portfolio</span></div>
+            <h1>Our Work</h1>
+            <p>A showcase of projects that have created real impact for real businesses.</p>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div class="filter-tabs" id="portfolio-filters">
+                    <button class="ftab active" data-filter="all">All Projects</button>
+                    <button class="ftab" data-filter="cloud">Cloud</button>
+                    <button class="ftab" data-filter="software">Software</button>
+                    <button class="ftab" data-filter="security">Security</button>
+                    <button class="ftab" data-filter="ai">AI / Data</button>
+                </div>
+                <div class="grid-3" id="portfolio-grid"></div>
+            </div>
+        </section>
+        <footer-component></footer-component>
+    </div>
+
+    <!--════════════════════════════════════════════════
+    PAGE: TEAM
+════════════════════════════════════════════════-->
+    <div id="page-team" class="page">
+        <div class="page-banner">
+            <div class="breadcrumb"><a onclick="showPage('home')" style="cursor:pointer">Home</a> › <span>Our
+                    Team</span></div>
+            <h1>Meet Our Team</h1>
+            <p>50+ passionate professionals united by a mission to deliver technology that truly matters.</p>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Leadership</div>
+                    <h2 class="section-title">The People <span class="hl">Behind Citiline</span></h2>
+                </div>
+                <div class="grid-4" id="team-grid"></div>
+            </div>
+        </section>
+        <section class="section section-blue">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Our Culture</div>
+                    <h2 class="section-title">Life at <span class="hl">Citiline</span></h2>
+                </div>
+                <div class="grid-3">
+                    <div class="card reveal" style="text-align:center">
+                        <div style="font-size:3rem;margin-bottom:1rem">🎓</div>
+                        <h3
+                            style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">
+                            Continuous Learning</h3>
+                        <p style="color:var(--muted);font-size:.88rem;line-height:1.65">Annual learning budgets,
+                            certification support, and internal knowledge-sharing sessions every week.</p>
+                    </div>
+                    <div class="card reveal" style="text-align:center">
+                        <div style="font-size:3rem;margin-bottom:1rem">🤝</div>
+                        <h3
+                            style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">
+                            Collaborative Culture</h3>
+                        <p style="color:var(--muted);font-size:.88rem;line-height:1.65">Cross-functional teams, flat
+                            hierarchy, and an environment where every voice counts and every idea is welcome.</p>
+                    </div>
+                    <div class="card reveal" style="text-align:center">
+                        <div style="font-size:3rem;margin-bottom:1rem">⚖️</div>
+                        <h3
+                            style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">
+                            Work-Life Balance</h3>
+                        <p style="color:var(--muted);font-size:.88rem;line-height:1.65">Flexible working hours,
+                            remote-friendly policies, and a genuine commitment to your wellbeing outside of work.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer-component></footer-component>
+    </div>
+
+    <!--════════════════════════════════════════════════
+    PAGE: BLOG
+════════════════════════════════════════════════-->
+    <div id="page-blog" class="page">
+        <div class="page-banner">
+            <div class="breadcrumb"><a onclick="showPage('home')" style="cursor:pointer">Home</a> › <span>Blog</span>
+            </div>
+            <h1>Insights & Articles</h1>
+            <p>Thought leadership on cloud, cybersecurity, AI, and digital transformation from our expert team.</p>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div class="grid-3" id="blog-grid"></div>
+            </div>
+        </section>
+        <footer-component></footer-component>
+    </div>
+
+    <!--════════════════════════════════════════════════
+    PAGE: CONTACT
+════════════════════════════════════════════════-->
+    <div id="page-contact" class="page">
+        <div class="page-banner">
+            <div class="breadcrumb"><a onclick="showPage('home')" style="cursor:pointer">Home</a> › <span>Contact</span>
+            </div>
+            <h1>Let's Talk</h1>
+            <p>Get in touch for a free consultation. We typically respond within 2 business hours.</p>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div>
+                        <div class="contact-info-card reveal-left">
+                            <h3 class="ci-title">Citiline Technologies Pvt. Ltd.</h3>
+                            <p class="ci-sub">We'd love to understand your challenge and share how we can help. Reach
+                                out via any channel below.</p>
+                            <div class="ci-item">
+                                <div class="ci-icon">📍</div>
+                                <div>
+                                    <div class="ci-label">Office Address</div>
+                                    <div class="ci-value">123, Tech Park, Vaishali Nagar<br />Jaipur, Rajasthan — 302021
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ci-item">
+                                <div class="ci-icon">📧</div>
+                                <div>
+                                    <div class="ci-label">Email Us</div>
+                                    <div class="ci-value">info@citiline.in<br />support@citiline.in</div>
+                                </div>
+                            </div>
+                            <div class="ci-item">
+                                <div class="ci-icon">📞</div>
+                                <div>
+                                    <div class="ci-label">Call Us</div>
+                                    <div class="ci-value">+91 98765 43210<br />+91 80XXX XXXXX</div>
+                                </div>
+                            </div>
+                            <div class="ci-item">
+                                <div class="ci-icon">🕐</div>
+                                <div>
+                                    <div class="ci-label">Working Hours</div>
+                                    <div class="ci-value">Mon–Sat: 9:00 AM – 7:00 PM IST</div>
+                                </div>
+                            </div>
+                            <div class="ci-socials">
+                                <a href="#" class="cis-btn">in</a>
+                                <a href="#" class="cis-btn">𝕏</a>
+                                <a href="#" class="cis-btn">f</a>
+                                <a href="#" class="cis-btn">▶</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form-card reveal-right">
+                        <h3 class="form-title">Send Us a Message</h3>
+                        <p class="form-sub">Fill in the details below and our team will get back to you within 24 hours.
+                        </p>
+                        <div class="form-success" id="form-success">✅ Thank you! Your message has been sent. We'll get
+                            back to you within 24 hours.</div>
+                        <div id="contact-form-fields">
+                            <div class="form-row">
+                                <div class="form-group"><label class="form-label">First Name *</label><input
+                                        class="form-input" type="text" placeholder="Rahul" /></div>
+                                <div class="form-group"><label class="form-label">Last Name *</label><input
+                                        class="form-input" type="text" placeholder="Sharma" /></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group"><label class="form-label">Email Address *</label><input
+                                        class="form-input" type="email" placeholder="rahul@company.com" /></div>
+                                <div class="form-group"><label class="form-label">Phone Number</label><input
+                                        class="form-input" type="tel" placeholder="+91 98765 43210" /></div>
+                            </div>
+                            <div class="form-group"><label class="form-label">Company Name</label><input
+                                    class="form-input" type="text" placeholder="Your Company Pvt. Ltd." /></div>
+                            <div class="form-group">
+                                <label class="form-label">Service Required</label>
+                                <select class="form-select">
+                                    <option value="">Select a service...</option>
+                                    <option>Cloud Infrastructure</option>
+                                    <option>Software Development</option>
+                                    <option>Cybersecurity</option>
+                                    <option>IT Consulting</option>
+                                    <option>AI & Data Analytics</option>
+                                    <option>Managed IT Support</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label class="form-label">Your Message *</label><textarea
+                                    class="form-textarea"
+                                    placeholder="Tell us about your project, requirements, or challenges..."></textarea>
+                            </div>
+                            <button class="form-submit" onclick="submitForm()">Send Message →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer-component></footer-component>
+    </div>
+
+    <!--════════════════════════════════════════════════
+    PAGE: CAREERS
+════════════════════════════════════════════════-->
+    <div id="page-careers" class="page">
+        <div class="page-banner">
+            <div class="breadcrumb"><a onclick="showPage('home')" style="cursor:pointer">Home</a> › <span>Careers</span>
+            </div>
+            <h1>Join Our Team</h1>
+            <p>Build your career at the intersection of technology and innovation. We're always looking for bright
+                minds.</p>
+        </div>
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Benefits & Perks</div>
+                    <h2 class="section-title">Why Work <span class="hl">With Us</span></h2>
+                </div>
+                <div class="perks-grid">
+                    <div class="perk-card reveal">
+                        <div class="perk-icon">💰</div>
+                        <div class="perk-title">Competitive Salary</div>
+                        <div class="perk-desc">Market-leading compensation with annual reviews, performance bonuses, and
+                            ESOPs for senior roles.</div>
+                    </div>
+                    <div class="perk-card reveal">
+                        <div class="perk-icon">🏥</div>
+                        <div class="perk-title">Health Coverage</div>
+                        <div class="perk-desc">Comprehensive medical insurance covering you and your family, including
+                            dental and vision benefits.</div>
+                    </div>
+                    <div class="perk-card reveal">
+                        <div class="perk-icon">🎓</div>
+                        <div class="perk-title">Learning Budget</div>
+                        <div class="perk-desc">₹50,000 annual budget per employee for courses, certifications,
+                            conferences, and books.</div>
+                    </div>
+                    <div class="perk-card reveal">
+                        <div class="perk-icon">🏠</div>
+                        <div class="perk-title">Flexible Work</div>
+                        <div class="perk-desc">Hybrid & remote options available. We trust our team to deliver results
+                            from wherever they work best.</div>
+                    </div>
+                    <div class="perk-card reveal">
+                        <div class="perk-icon">🚀</div>
+                        <div class="perk-title">Fast Growth</div>
+                        <div class="perk-desc">Clear career paths, mentorship programs, and real opportunities to take
+                            on leadership early.</div>
+                    </div>
+                    <div class="perk-card reveal">
+                        <div class="perk-icon">🎉</div>
+                        <div class="perk-title">Team Culture</div>
+                        <div class="perk-desc">Quarterly team outings, hackathons, Friday socials, and a genuinely fun
+                            place to spend your working day.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Open Positions</div>
+                    <h2 class="section-title">Current <span class="hl">Openings</span></h2>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:1.2rem" id="jobs-grid"></div>
+            </div>
+        </section>
+        <footer-component></footer-component>
+    </div>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/919876543210" target="_blank" class="wa-btn" title="WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+        </svg>
+    </a>
+    <div class="wa-tooltip">Chat on WhatsApp</div>
+
+    <script>
+        /*════════════════════════════════════════════════
+          ANIMATION ENGINE
+        ════════════════════════════════════════════════*/
+
+        /* ── PAGE ROUTING with transition ── */
+        function showPage(id) {
+            const overlay = document.getElementById('page-transition');
+            overlay.classList.add('enter');
+            setTimeout(() => {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.getElementById('page-' + id).classList.add('active');
+                document.querySelectorAll('.nav-links a').forEach(a => {
+                    a.classList.toggle('active', a.dataset.page === id);
+                });
+                window.scrollTo({ top: 0, behavior: 'instant' });
+                overlay.classList.remove('enter');
+                overlay.classList.add('exit');
+                setTimeout(() => overlay.classList.remove('exit'), 500);
+                setTimeout(() => {
+                    initReveal();
+                    initStagger();
+                    animateSkillBars();
+                }, 120);
+                if (id === 'portfolio') renderPortfolio();
+                if (id === 'team') renderTeam();
+                if (id === 'blog') renderBlog();
+                if (id === 'careers') renderJobs();
+            }, 280);
+        }
+
+        /* ── MOBILE NAV ── */
+        function toggleMobile() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+
+        /* ── SCROLL PROGRESS BAR ── */
+        window.addEventListener('scroll', () => {
+            const el = document.getElementById('scroll-progress');
+            const doc = document.documentElement;
+            const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+            el.style.width = pct + '%';
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+            initReveal();
+            initStagger();
+        });
+
+        /* ── REVEAL ── */
+        function initReveal() {
+            document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 70) el.classList.add('vis');
+            });
+        }
+
+        /* ── STAGGER ── */
+        function initStagger() {
+            document.querySelectorAll('.stagger-child:not(.vis)').forEach((el, i) => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+                    setTimeout(() => el.classList.add('vis'), i * 100);
+                }
+            });
+        }
+        setTimeout(() => { initReveal(); initStagger(); animateCounters(); }, 250);
+
+        /* ── COUNTER ANIMATION (eased) ── */
+        function animateCounters() {
+            document.querySelectorAll('.counter-val[data-count]').forEach(el => {
+                if (el.dataset.animated) return;
+                el.dataset.animated = '1';
+                const target = +el.dataset.count;
+                const suffix = el.dataset.suffix || '';
+                const dur = 1600, fps = 60, frames = dur / 1000 * fps;
+                let frame = 0;
+                const timer = setInterval(() => {
+                    frame++;
+                    const progress = frame / frames;
+                    const eased = 1 - Math.pow(1 - progress, 4);
+                    el.textContent = Math.floor(eased * target) + suffix;
+                    if (frame >= frames) { el.textContent = target + suffix; clearInterval(timer); }
+                }, 1000 / fps);
+            });
+        }
+        const heroObs = new IntersectionObserver(e => { e.forEach(en => { if (en.isIntersecting) animateCounters() }) }, { threshold: .25 });
+        document.querySelectorAll('.hero-stats').forEach(el => heroObs.observe(el));
+
+        /*────────────────────────────────
+          TECH STACK TICKER
+        ────────────────────────────────*/
+        const techs = ['React', 'Node.js', 'Python', 'AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'PostgreSQL', 'MongoDB', 'Laravel', 'Vue.js', 'TensorFlow', 'Power BI', 'Salesforce', 'SAP', '.NET', 'Angular', 'Flutter', 'Next.js'];
+        const ti = document.getElementById('ticker-inner');
+        if (ti) {
+            [...techs, ...techs].forEach(t => {
+                const d = document.createElement('div'); d.className = 'ticker-item';
+                d.innerHTML = `${t}<span class="ticker-sep">◆</span>`;
+                ti.appendChild(d);
+            });
+        }
+
+        /*────────────────────────────────
+          HERO CANVAS PARTICLES
+        ────────────────────────────────*/
+        (function initHeroCanvas() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let W, H, pts;
+            function resize() {
+                W = canvas.width = canvas.offsetWidth;
+                H = canvas.height = canvas.offsetHeight;
+            }
+            function makePoints() {
+                const n = Math.floor(W * H / 9000);
+                pts = Array.from({ length: n }, () => ({
+                    x: Math.random() * W, y: Math.random() * H,
+                    vx: (Math.random() - .5) * .5, vy: (Math.random() - .5) * .5,
+                    r: Math.random() * 2 + 1
+                }));
+            }
+            resize(); makePoints();
+            window.addEventListener('resize', () => { resize(); makePoints(); });
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                pts.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0 || p.x > W) p.vx *= -1;
+                    if (p.y < 0 || p.y > H) p.vy *= -1;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(26,86,219,0.5)'; ctx.fill();
+                });
+                for (let i = 0; i < pts.length; i++) {
+                    for (let j = i + 1; j < pts.length; j++) {
+                        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+                        const d = Math.sqrt(dx * dx + dy * dy);
+                        if (d < 110) {
+                            ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
+                            ctx.strokeStyle = `rgba(26,86,219,${.12 * (1 - d / 110)})`; ctx.lineWidth = .8; ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        /*────────────────────────────────
+          AMBIENT BG PARTICLES
+        ────────────────────────────────*/
+        (function initBgCanvas() {
+            const canvas = document.getElementById('bg-particles');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.style.position = 'fixed'; canvas.style.inset = '0';
+            canvas.style.width = '100%'; canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none'; canvas.style.zIndex = '-1';
+            let W, H, dots;
+            function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+            resize(); window.addEventListener('resize', resize);
+            dots = Array.from({ length: 25 }, () => ({
+                x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
+                r: Math.random() * 3 + 2,
+                vx: (Math.random() - .5) * .15, vy: (Math.random() - .5) * .15,
+                o: Math.random() * .15 + .05
+            }));
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                dots.forEach(d => {
+                    d.x += d.vx; d.y += d.vy;
+                    if (d.x < -20) d.x = W + 20; if (d.x > W + 20) d.x = -20;
+                    if (d.y < -20) d.y = H + 20; if (d.y > H + 20) d.y = -20;
+                    ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(26,86,219,${d.o})`; ctx.fill();
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        /*────────────────────────────────
+          CUSTOM CURSOR
+        ────────────────────────────────*/
+        (function initCursor() {
+            const dot = document.getElementById('cursor-dot');
+            const ring = document.getElementById('cursor-ring');
+            if (!dot || !ring || window.innerWidth < 900) return;
+            let mx = 0, my = 0, rx = 0, ry = 0;
+            document.addEventListener('mousemove', e => {
+                mx = e.clientX; my = e.clientY;
+                dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+            });
+            (function lerp() {
+                rx += (mx - rx) * .12; ry += (my - ry) * .12;
+                ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+                requestAnimationFrame(lerp);
+            })();
+            document.querySelectorAll('a,button,.card,.blog-card,.team-card,.project-card').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    ring.style.width = '56px'; ring.style.height = '56px';
+                    ring.style.borderColor = 'rgba(26,86,219,.6)';
+                    dot.style.transform = 'translate(-50%,-50%) scale(0)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    ring.style.width = '36px'; ring.style.height = '36px';
+                    ring.style.borderColor = 'rgba(26,86,219,.45)';
+                    dot.style.transform = 'translate(-50%,-50%) scale(1)';
+                });
+            });
+        })();
+
+        /*────────────────────────────────
+          TYPING EFFECT
+        ────────────────────────────────*/
+        (function initTyping() {
+            const el = document.getElementById('typed-word');
+            if (!el) return;
+            const words = ['Smart IT', 'the Cloud', 'AI Power', 'Innovation', 'Excellence'];
+            let wi = 0, ci = 0, del = false;
+            function tick() {
+                const word = words[wi];
+                if (!del) { el.textContent = word.slice(0, ++ci); if (ci === word.length) { del = true; setTimeout(tick, 1800); return; } }
+                else { el.textContent = word.slice(0, --ci); if (ci === 0) { del = false; wi = (wi + 1) % words.length; } }
+                setTimeout(tick, del ? 45 : 90);
+            }
+            setTimeout(tick, 1200);
+        })();
+
+        /*────────────────────────────────
+          MAGNETIC BUTTONS
+        ────────────────────────────────*/
+        document.querySelectorAll('.btn-magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const r = btn.getBoundingClientRect();
+                const dx = (e.clientX - r.left - r.width / 2) * .25;
+                const dy = (e.clientY - r.top - r.height / 2) * .25;
+                btn.style.transform = `translate(${dx}px,${dy}px)`;
+            });
+            btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+        });
+
+        /*────────────────────────────────
+          RIPPLE EFFECT
+        ────────────────────────────────*/
+        document.addEventListener('click', e => {
+            const host = e.target.closest('.ripple-host');
+            if (!host) return;
+            const r = host.getBoundingClientRect();
+            const size = Math.max(r.width, r.height);
+            const wave = document.createElement('span');
+            wave.className = 'ripple-wave';
+            wave.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - r.left - size / 2}px;top:${e.clientY - r.top - size / 2}px`;
+            host.appendChild(wave);
+            wave.addEventListener('animationend', () => wave.remove());
+        });
+
+        /*────────────────────────────────
+          3D TILT CARDS
+        ────────────────────────────────*/
+        function initTilt() {
+            document.querySelectorAll('.card,.pricing-card,.team-card,.blog-card,.project-card').forEach(card => {
+                if (card.dataset.tilt) return;
+                card.dataset.tilt = '1';
+                card.addEventListener('mousemove', e => {
+                    const r = card.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width - .5;
+                    const y = (e.clientY - r.top) / r.height - .5;
+                    card.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
+                });
+                card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+            });
+        }
+        setTimeout(initTilt, 600);
+        const tiltObs = new MutationObserver(() => initTilt());
+        tiltObs.observe(document.body, { childList: true, subtree: true });
+
+        /*────────────────────────────────
+          SKILL BARS (About page)
+        ────────────────────────────────*/
+        function animateSkillBars() {
+            document.querySelectorAll('.skill-bar-fill:not([data-animated])').forEach(bar => {
+                const rect = bar.closest('.skill-bar-wrap')?.getBoundingClientRect();
+                if (rect && rect.top < window.innerHeight - 60) {
+                    bar.dataset.animated = '1';
+                    bar.style.width = bar.dataset.width || '80%';
+                }
+            });
+        }
+        window.addEventListener('scroll', animateSkillBars);
+
+        /*────────────────────────────────
+          TOAST NOTIFICATION
+        ────────────────────────────────*/
+        function showToast(msg, dur = 2800) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), dur);
+        }
+
+        /*────────────────────────────────
+          LOGO MARK PULSE (continuous)
+        ────────────────────────────────*/
+        (function pulseLogoMark() {
+            const lm = document.querySelector('.logo-mark');
+            if (!lm) return;
+            let up = true, s = 0;
+            setInterval(() => {
+                s += up ? .04 : -.04;
+                if (s >= 1) { up = false; } else if (s <= 0) { up = true; }
+                lm.style.boxShadow = `0 4px ${14 + s * 14}px rgba(26,86,219,${.35 + s * .25})`;
+            }, 30);
+        })();
+
+        /*────────────────────────────────
+          SERVICE ICON ANIMATION on hover
+        ────────────────────────────────*/
+        document.querySelectorAll('.svc-icon').forEach(icon => {
+            icon.parentElement.addEventListener('mouseenter', () => {
+                icon.style.animation = 'iconBounce .6s ease';
+                icon.addEventListener('animationend', () => icon.style.animation = '', { once: true });
+            });
+        });
+
+        /*────────────────────────────────
+          PAGE BANNER PARTICLE TRAIL
+        ────────────────────────────────*/
+        document.querySelectorAll('.page-banner').forEach(banner => {
+            banner.addEventListener('mousemove', e => {
+                const span = document.createElement('span');
+                const r = banner.getBoundingClientRect();
+                const size = Math.random() * 8 + 4;
+                span.style.cssText = `position:absolute;border-radius:50%;
+      width:${size}px;height:${size}px;
+      background:rgba(255,255,255,${Math.random() * .4 + .2});
+      left:${e.clientX - r.left}px;top:${e.clientY - r.top}px;
+      pointer-events:none;z-index:2;
+      animation:particleRise .8s ease forwards`;
+                banner.appendChild(span);
+                setTimeout(() => span.remove(), 800);
+            });
+        });
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `@keyframes particleRise{from{transform:translateY(0) scale(1);opacity:1}to{transform:translateY(-40px) scale(0);opacity:0}}`;
+        document.head.appendChild(particleStyle);
+
+        /*────────────────────────────────
+          PORTFOLIO DATA
+        ────────────────────────────────*/
+        const projects = [
+            { cat: 'cloud', icon: '☁️', bg: '#EFF6FF', title: 'CloudMigrate Pro', client: 'NexaTech Solutions', desc: 'Complete AWS cloud migration of legacy on-premise infrastructure serving 10,000+ daily users.', tags: ['AWS', 'Docker', 'Terraform'] },
+            { cat: 'software', icon: '📱', bg: '#F0FDF4', title: 'RetailMax Mobile App', client: 'GlobalMart Retail', desc: 'Cross-platform iOS/Android app for inventory management and POS integration for 200+ stores.', tags: ['Flutter', 'React Native', 'Firebase'] },
+            { cat: 'ai', icon: '🤖', bg: '#FFF7ED', title: 'PredictSales AI', client: 'Orion Finserv', desc: 'ML-powered revenue forecasting dashboard reducing manual reporting time by 70%.', tags: ['Python', 'TensorFlow', 'Power BI'] },
+            { cat: 'security', icon: '🔒', bg: '#FFF1F2', title: 'SecureAudit Platform', client: 'MedCare Hospitals', desc: 'HIPAA-compliant security audit and real-time threat monitoring for healthcare IT systems.', tags: ['ISO 27001', 'SIEM', 'Compliance'] },
+            { cat: 'software', icon: '🏭', bg: '#F5F3FF', title: 'MfgConnect ERP', client: 'Bharat Industries', desc: 'Custom ERP system for manufacturing with real-time production tracking and supplier management.', tags: ['React', 'Node.js', 'PostgreSQL'] },
+            { cat: 'cloud', icon: '🌐', bg: '#ECFEFF', title: 'Multi-Cloud Gateway', client: 'LogiTrans Pvt. Ltd.', desc: 'Hybrid cloud networking solution connecting AWS and Azure with sub-10ms latency across offices.', tags: ['Azure', 'AWS', 'VPN', 'BGP'] },
+        ];
+
+        function renderPortfolio(filter = 'all') {
+            const grid = document.getElementById('portfolio-grid'); if (!grid) return;
+            grid.innerHTML = '';
+            projects.filter(p => filter === 'all' || p.cat === filter).forEach((p, i) => {
+                const el = document.createElement('div'); el.className = 'project-card reveal';
+                el.style.transitionDelay = `${i * 80}ms`;
+                el.innerHTML = `<div class="pc-thumb" style="background:${p.bg}">
+      <span style="font-size:3.5rem">${p.icon}</span>
+      <div class="pc-overlay"><div class="pc-view">View Details</div></div>
+    </div>
+    <div class="pc-body">
+      <div class="pc-cat">${p.cat}</div>
+      <div class="pc-title">${p.title}</div>
+      <div class="pc-desc">${p.desc}</div>
+      <div class="pc-tags">${p.tags.map(t => `<span class="pc-tag">${t}</span>`).join('')}</div>
+    </div>`;
+                grid.appendChild(el);
+            });
+            setTimeout(initReveal, 50);
+        }
+
+        document.addEventListener('click', e => {
+            if (e.target.classList.contains('ftab')) {
+                document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                renderPortfolio(e.target.dataset.filter);
+            }
+        });
+
+        /*────────────────────────────────
+          TEAM DATA
+        ────────────────────────────────*/
+        const team = [
+            { initials: 'AV', name: 'Amit Verma', role: 'Founder & CEO', desc: '15 years in IT strategy. Built 3 technology companies before founding Citiline.' },
+            { initials: 'PK', name: 'Priya Kaur', role: 'CTO', desc: 'Ex-Infosys cloud architect. AWS & Azure certified with a passion for scalable systems.' },
+            { initials: 'RS', name: 'Rohit Sharma', role: 'Head of Engineering', desc: 'Full-stack specialist with 10+ years building enterprise-grade applications.' },
+            { initials: 'NM', name: 'Neha Mehta', role: 'Head of Cybersecurity', desc: 'CISSP certified. Previously led security for a Fortune 500 company in Bangalore.' },
+            { initials: 'VG', name: 'Vikas Gupta', role: 'Head of Cloud', desc: 'Multi-cloud specialist. Designed infrastructure for clients across 5 countries.' },
+            { initials: 'SK', name: 'Sunita Kumar', role: 'Head of AI & Data', desc: 'PhD in ML from IIT Delhi. Loves turning messy data into beautiful insights.' },
+            { initials: 'MJ', name: 'Mohit Jain', role: 'Head of Consulting', desc: 'MBA from IIM-A. Specializes in digital transformation for BFSI and retail sectors.' },
+            { initials: 'DP', name: 'Deepa Patel', role: 'Head of Operations', desc: 'Keeps the machine running smoothly — from HR to delivery excellence.' },
+        ];
+
+        function renderTeam() {
+            const grid = document.getElementById('team-grid'); if (!grid || grid.children.length > 0) return;
+            team.forEach((m, i) => {
+                const el = document.createElement('div'); el.className = 'team-card reveal';
+                el.style.transitionDelay = `${i * 70}ms`;
+                el.innerHTML = `<div class="team-avatar"><div class="team-avatar-inner">${m.initials}</div></div>
+    <div class="team-info">
+      <div class="team-name">${m.name}</div>
+      <div class="team-role">${m.role}</div>
+      <div class="team-desc">${m.desc}</div>
+      <div class="team-social">
+        <a href="#" class="tsoc">in</a>
+        <a href="#" class="tsoc">𝕏</a>
+        <a href="#" class="tsoc">✉</a>
+      </div>
+    </div>`;
+                grid.appendChild(el);
+            });
+            setTimeout(initReveal, 50);
+        }
+
+        /*────────────────────────────────
+          BLOG DATA
+        ────────────────────────────────*/
+        const blogs = [
+            { cat: 'Cloud', icon: '☁️', bg: '#EFF6FF', date: '15 June 2025', title: 'Why Every Business Needs a Multi-Cloud Strategy in 2025', excerpt: 'Single-cloud dependency is a risk no growing company can afford. Here\'s how to architect for resilience.', author: 'Priya Kaur', ai: 'PK', readTime: '6 min read' },
+            { cat: 'Cybersecurity', icon: '🔒', bg: '#FFF1F2', date: '8 June 2025', title: 'The 5 Cybersecurity Threats Targeting Indian SMEs Right Now', excerpt: 'From ransomware to phishing-as-a-service — the threat landscape for Indian businesses has never been more complex.', author: 'Neha Mehta', ai: 'NM', readTime: '8 min read' },
+            { cat: 'AI & Data', icon: '🤖', bg: '#FFF7ED', date: '1 June 2025', title: 'Building a Data-Driven Culture: A Step-by-Step Guide', excerpt: 'Tools alone won\'t make you data-driven. Culture, processes, and leadership alignment matter far more.', author: 'Sunita Kumar', ai: 'SK', readTime: '7 min read' },
+            { cat: 'Software', icon: '💻', bg: '#F5F3FF', date: '22 May 2025', title: 'React vs. Angular in 2025: Which Should You Pick for Enterprise Apps?', excerpt: 'Both are mature, battle-tested frameworks. But the right choice depends on factors most articles miss.', author: 'Rohit Sharma', ai: 'RS', readTime: '5 min read' },
+            { cat: 'Consulting', icon: '📊', bg: '#F0FDF4', date: '14 May 2025', title: 'Digital Transformation Failures: 10 Lessons From Real Projects', excerpt: '70% of digital transformation projects underdeliver. Here\'s what actually goes wrong — and how to avoid it.', author: 'Mohit Jain', ai: 'MJ', readTime: '9 min read' },
+            { cat: 'Cloud', icon: '⚡', bg: '#ECFEFF', date: '5 May 2025', title: 'Kubernetes Cost Optimization: Reduce Your Cloud Bill by 35%', excerpt: 'Kubernetes is powerful but expensive if misconfigured. Practical tips that our team uses daily with clients.', author: 'Vikas Gupta', ai: 'VG', readTime: '6 min read' },
+        ];
+
+        function renderBlog() {
+            const grid = document.getElementById('blog-grid'); if (!grid || grid.children.length > 0) return;
+            blogs.forEach((b, i) => {
+                const el = document.createElement('div'); el.className = 'blog-card reveal';
+                el.style.transitionDelay = `${i * 80}ms`;
+                el.innerHTML = `<div class="blog-thumb" style="background:${b.bg}"><span>${b.icon}</span></div>
+    <div class="blog-body">
+      <div class="blog-meta"><span class="blog-cat">${b.cat}</span><span class="blog-date">${b.date}</span></div>
+      <div class="blog-title">${b.title}</div>
+      <div class="blog-excerpt">${b.excerpt}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="blog-author"><div class="ba-avatar">${b.ai}</div><span class="ba-name">${b.author}</span></div>
+        <span style="font-size:.78rem;color:var(--muted)">📖 ${b.readTime}</span>
+      </div>
+      <a class="blog-read">Read Article →</a>
+    </div>`;
+                grid.appendChild(el);
+            });
+            setTimeout(initReveal, 50);
+        }
+
+        /*────────────────────────────────
+          JOBS DATA
+        ────────────────────────────────*/
+        const jobs = [
+            { icon: '💻', dept: 'Engineering', title: 'Senior Full-Stack Developer (React + Node.js)', loc: 'Jaipur / Remote', type: 'Full-Time', exp: '4–7 Years', desc: 'Build and scale web applications for enterprise clients. You\'ll work across the stack on projects that matter.' },
+            { icon: '☁️', dept: 'Cloud', title: 'Cloud Solutions Architect', loc: 'Jaipur', type: 'Full-Time', exp: '5–9 Years', desc: 'Design and implement cloud architectures on AWS/Azure for our growing client portfolio.' },
+            { icon: '🔒', dept: 'Cybersecurity', title: 'Security Analyst (SOC)', loc: 'Remote', type: 'Full-Time', exp: '2–4 Years', desc: 'Monitor, detect, and respond to security incidents across client environments in real time.' },
+            { icon: '🤖', dept: 'AI & Data', title: 'ML Engineer', loc: 'Jaipur / Hybrid', type: 'Full-Time', exp: '3–5 Years', desc: 'Develop and deploy machine learning models for clients in BFSI, retail, and healthcare.' },
+            { icon: '📊', dept: 'Consulting', title: 'IT Business Analyst', loc: 'Jaipur', type: 'Full-Time', exp: '2–4 Years', desc: 'Bridge client business needs and technology solutions. Requirements gathering, process mapping, and solution design.' },
+            { icon: '🎨', dept: 'Design', title: 'UI/UX Designer', loc: 'Remote', type: 'Full-Time', exp: '2–5 Years', desc: 'Craft intuitive, beautiful digital experiences for our web and mobile application projects.' },
+        ];
+
+        function renderJobs() {
+            const grid = document.getElementById('jobs-grid'); if (!grid || grid.children.length > 0) return;
+            jobs.forEach((j, i) => {
+                const el = document.createElement('div'); el.className = 'job-card reveal';
+                el.style.transitionDelay = `${i * 70}ms`;
+                el.innerHTML = `<div class="job-icon">${j.icon}</div>
+    <div style="flex:1">
+      <div class="job-dept">${j.dept}</div>
+      <div class="job-title">${j.title}</div>
+      <div class="job-meta">
+        <span class="job-badge">📍 ${j.loc}</span>
+        <span class="job-badge">⏰ ${j.type}</span>
+        <span class="job-badge">💼 ${j.exp}</span>
+      </div>
+      <div class="job-desc">${j.desc}</div>
+    </div>
+    <button class="job-apply" onclick="showPage('contact')">Apply Now →</button>`;
+                grid.appendChild(el);
+            });
+            setTimeout(initReveal, 50);
+        }
+
+        /*────────────────────────────────
+          CONTACT FORM
+        ────────────────────────────────*/
+        function submitForm() {
+            const fields = document.getElementById('contact-form-fields');
+            const success = document.getElementById('form-success');
+            // Animate button
+            const btn = fields.querySelector('.form-submit');
+            btn.textContent = 'Sending…'; btn.disabled = true;
+            setTimeout(() => {
+                fields.style.display = 'none';
+                success.classList.add('show');
+                showToast('✅ Message sent! We will contact you within 24 hours.');
+                setTimeout(() => {
+                    success.classList.remove('show');
+                    fields.style.display = 'block';
+                    btn.textContent = 'Send Message →'; btn.disabled = false;
+                }, 5000);
+            }, 1200);
+        }
+
+        /*────────────────────────────────
+          CUSTOM ELEMENT: FOOTER
+        ────────────────────────────────*/
+        class FooterComponent extends HTMLElement {
+            connectedCallback() {
+                this.innerHTML = `
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="nav-logo" onclick="showPage('home')" style="cursor:pointer">
+              <div class="logo-mark">CT</div>
+              <span class="logo-name" style="color:#fff">Citiline <span>Tech</span></span>
+            </div>
+            <p>Driving digital transformation through innovative IT solutions and strategic consulting. Your growth, our mission.</p>
+            <div class="footer-social">
+              <a href="#" class="fsoc">in</a>
+              <a href="#" class="fsoc">𝕏</a>
+              <a href="#" class="fsoc">f</a>
+              <a href="#" class="fsoc">▶</a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><button onclick="showPage('services')">Cloud Infrastructure</button></li>
+              <li><button onclick="showPage('services')">Software Development</button></li>
+              <li><button onclick="showPage('services')">Cybersecurity</button></li>
+              <li><button onclick="showPage('services')">IT Consulting</button></li>
+              <li><button onclick="showPage('services')">AI & Analytics</button></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+              <li><button onclick="showPage('about')">About Us</button></li>
+              <li><button onclick="showPage('team')">Our Team</button></li>
+              <li><button onclick="showPage('careers')">Careers</button></li>
+              <li><button onclick="showPage('portfolio')">Portfolio</button></li>
+              <li><button onclick="showPage('blog')">Blog</button></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <div class="fc-contact-item"><span class="fc-icon">📍</span>123, Tech Park, Vaishali Nagar, Jaipur, RJ 302021</div>
+            <div class="fc-contact-item"><span class="fc-icon">📧</span>info@citiline.in</div>
+            <div class="fc-contact-item"><span class="fc-icon">📞</span>+91 98765 43210</div>
+            <div class="fc-contact-item"><span class="fc-icon">🕐</span>Mon–Sat, 9AM–7PM IST</div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 <span class="accent">Citiline Technologies Pvt. Ltd.</span> All rights reserved.</p>
+          <p>Privacy Policy &nbsp;|&nbsp; Terms of Service &nbsp;|&nbsp; CIN: U72900RJ2017PTC000000</p>
+        </div>
+      </div>
+    </footer>`;
+            }
+        }
+        customElements.define('footer-component', FooterComponent);
+    </script>
+</body>
+
+</html>
