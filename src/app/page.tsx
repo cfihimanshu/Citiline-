@@ -278,6 +278,8 @@ export default function HomePage() {
                                 <img src="/bizondeck-logo.png" alt={group === 0 ? "BizOnDeck" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
                                 <img src="/indiaproperty%20logo.png" alt={group === 0 ? "India Property To Let" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
                                 <img src="/uploymentlogo.jpeg" alt={group === 0 ? "Uployment" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <img src="/startupkare.png" alt={group === 0 ? "StartupKare" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <img src="/msmelaunchpad.png" alt={group === 0 ? "MSME Launchpad" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
                             </div>
                         ))}
                     </div>
