@@ -1,26 +1,60 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import ParticleCanvas from "@/components/ParticleCanvas";
 import TechTicker from "@/components/TechTicker";
 import TypeWriter from "@/components/TypeWriter";
 import Counter from "@/components/Counter";
-import { Zap, Cloud, ShieldCheck, Monitor, Lock, BarChart, Scale, Building, Mail } from 'lucide-react';
+import { Cloud, Monitor, Lock, BarChart, Scale, Building, Mail, BriefcaseBusiness } from 'lucide-react';
 
 export default function HomePage() {
+    const [activeWhyStep, setActiveWhyStep] = useState(0);
+    const whySteps = [
+        {
+            title: "Expertise Meets Innovation",
+            description: "Certified specialists combine proven experience with modern cloud, software, AI and security practices.",
+            image: "/why-innovation-ai.webp",
+            alt: "Technology consultants collaborating on digital transformation",
+        },
+        {
+            title: "End-to-End Delivery",
+            description: "From discovery and strategy to development, deployment and support, one team owns the complete journey.",
+            image: "/why-delivery-ai.webp",
+            alt: "Citiline specialists planning a client technology project",
+        },
+        {
+            title: "Client-Centric Approach",
+            description: "Every solution is shaped around your business goals, operational reality, budget and growth roadmap.",
+            image: "/why-client-ai.webp",
+            alt: "Business professionals discussing a tailored digital strategy",
+        },
+        {
+            title: "Reach Across Bharat",
+            description: "We connect businesses and communities with practical digital platforms built for meaningful impact.",
+            image: "/why-bharat-ai.webp",
+            alt: "Digital services supporting a rural Indian community",
+        },
+        {
+            title: "Startup Support",
+            description: "From idea validation and business planning to launch readiness, compliance and fundraising preparation, we help founders build confidently.",
+            image: "/why-startup-ai.webp",
+            alt: "Startup founders reviewing their launch plan with an experienced advisor",
+        },
+        {
+            title: "Business Consultancy",
+            description: "Research-backed strategy, financial planning and process improvement help leadership teams make stronger growth decisions.",
+            image: "/why-business-consultancy-ai.webp",
+            alt: "Business consultant presenting a growth strategy to company leaders",
+        },
+    ];
+
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             
 
         {/*  Hero  */}
         <section className="hero">
-            <ParticleCanvas />
-            <div className="orb orb-1"></div>
-            <div className="orb orb-2"></div>
-            <div className="orb orb-3"></div>
-            <div className="morph-blob" style={{"width":"500px","height":"500px","right":"-100px","top":"-80px"}}></div>
             <div className="hero-inner">
-                <div>
+                <div className="hero-content">
                     <div className="hero-badge stagger-child"><span className="badge-pulse"></span>Trusted IT &amp; Consulting
                         Partner</div>
                     <h1 className="hero-title stagger-child">Powering Your<br /><span className="grad-animate">Digital
@@ -57,24 +91,6 @@ export default function HomePage() {
                         </div>
                     </div>
                 </div>
-                <div className="hero-visual">
-                    <div className="hero-card-main shine-card glow-on-hover">
-                        <div className="hcard-icon icon-bounce flex items-center justify-center"><Zap size={24} /></div>
-                        <div className="hcard-title">Full-Stack IT Solutions</div>
-                        <div className="hcard-sub">From ideation to deployment — we handle every layer of your technology
-                            stack with precision and expertise.</div>
-                        <div className="hcard-tags">
-                            <span className="tag">Cloud</span><span className="tag">AI / ML</span><span className="tag">Security</span>
-                            <span className="tag">DevOps</span><span className="tag">ERP</span><span className="tag">Mobile</span>
-                        </div>
-                    </div>
-                    <div className="hero-float f1">
-                        <div className="float-icon flex items-center justify-center"><Cloud size={20} /></div>Cloud Migration
-                    </div>
-                    <div className="hero-float f2">
-                        <div className="float-icon flex items-center justify-center"><ShieldCheck size={20} /></div>99.9% Uptime SLA
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -86,9 +102,8 @@ export default function HomePage() {
             <div className="container">
                 <div className="section-head reveal">
                     <div className="eyebrow"><span className="eyebrow-dot"></span>Our Expertise</div>
-                    <h2 className="section-title">Comprehensive <span className="hl">IT Services</span></h2>
-                    <p className="section-sub">We cover the full spectrum of technology services your business needs to
-                        thrive in the digital era.</p>
+                    <h2 className="section-title">Comprehensive <span className="hl">Business &amp; IT Services</span></h2>
+                    <p className="section-sub">We combine business strategy and technology expertise to help organizations launch, optimize, and scale.</p>
                 </div>
                 <div className="grid-auto">
                     <div className="card reveal">
@@ -119,6 +134,11 @@ export default function HomePage() {
                             your business goals.</p><a className="svc-link" href="/services">Learn more →</a>
                     </div>
                     <div className="card reveal">
+                        <div className="svc-icon flex items-center justify-center"><span><BriefcaseBusiness size={24} /></span></div>
+                        <h3 className="svc-title">Business Consultancy</h3>
+                        <p className="svc-desc">Business plans, market research, growth strategy, financial planning, process improvement, fundraising readiness, and franchise advisory.</p><a className="svc-link" href="/services">Learn more →</a>
+                    </div>
+                    <div className="card reveal">
                         <div className="svc-icon flex items-center justify-center"><span><Scale size={24} /></span></div>
                         <h3 className="svc-title">Debt Recovery &amp; Resolution</h3>
                         <p className="svc-desc">Authorized Recovery &amp; Detective Agency for top banks. Expertise in SARFAESI execution, asset seizure, and debt resolution.</p><a className="svc-link" href="/services">Learn more
@@ -137,64 +157,38 @@ export default function HomePage() {
         {/*  Why Us  */}
         <section className="section">
             <div className="container">
-                <div className="why-grid">
-                    <div className="reveal-left">
-                        <div className="eyebrow"><span className="eyebrow-dot"></span>Why Citiline</div>
-                        <h2 className="section-title">Technology Partners <span className="hl">You Can Trust</span></h2>
-                        <p className="section-sub" style={{"marginBottom":"2rem"}}>We don't just deliver projects — we build
-                            long-term partnerships that drive measurable business value.</p>
-                        <div className="why-item">
-                            <div className="why-num">1</div>
-                            <div className="why-text">
-                                <h4>Certified Professionals</h4>
-                                <p>Team of 50+ certified IT professionals across cloud, security, AI, and consulting
-                                    domains.</p>
-                            </div>
-                        </div>
-                        <div className="why-item">
-                            <div className="why-num">2</div>
-                            <div className="why-text">
-                                <h4>On-Time, On-Budget Delivery</h4>
-                                <p>Agile delivery methodology with transparent communication and zero-surprise billing.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="why-item">
-                            <div className="why-num">3</div>
-                            <div className="why-text">
-                                <h4>Pan-India + Global Reach</h4>
-                                <p>Offices in Jaipur with remote delivery capability for clients across India, UAE, and
-                                    beyond.</p>
-                            </div>
-                        </div>
-                        <div className="why-item">
-                            <div className="why-num">4</div>
-                            <div className="why-text">
-                                <h4>Post-Deployment Support</h4>
-                                <p>Dedicated support teams ensuring your systems stay optimized and secure 24×7.</p>
-                            </div>
-                        </div>
-                        <a className="btn btn-primary" href="/about">Learn About Us →</a>
+                <div className="interactive-why-heading reveal">
+                    <div className="eyebrow"><span className="eyebrow-dot"></span>Why Citiline</div>
+                    <h2>Why Choose Us</h2>
+                </div>
+                <div className="interactive-why reveal">
+                    <div className="interactive-why-image">
+                        <motion.img
+                            key={whySteps[activeWhyStep].image}
+                            src={whySteps[activeWhyStep].image}
+                            alt={whySteps[activeWhyStep].alt}
+                            initial={{ opacity: 0, scale: 1.03 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.35 }}
+                        />
                     </div>
-                    <div className="reveal-right">
-                        <div className="why-visual">
-                            <div className="wv-metric">
-                                <div className="wv-metric-num">200+</div>
-                                <div className="wv-metric-label">Successful Projects Delivered</div>
-                            </div>
-                            <div className="wv-metric">
-                                <div className="wv-metric-num">99.9%</div>
-                                <div className="wv-metric-label">Average Client Satisfaction Score</div>
-                            </div>
-                            <div className="wv-metric">
-                                <div className="wv-metric-num">40%</div>
-                                <div className="wv-metric-label">Average Cost Reduction for Clients</div>
-                            </div>
-                            <div className="wv-metric">
-                                <div className="wv-metric-num">8 Yrs</div>
-                                <div className="wv-metric-label">Industry Experience &amp; Expertise</div>
-                            </div>
-                        </div>
+                    <div className="interactive-why-steps">
+                        {whySteps.map((step, index) => (
+                            <button
+                                type="button"
+                                className={`interactive-why-step ${activeWhyStep === index ? "active" : ""}`}
+                                onMouseEnter={() => setActiveWhyStep(index)}
+                                onFocus={() => setActiveWhyStep(index)}
+                                onClick={() => setActiveWhyStep(index)}
+                                key={step.title}
+                            >
+                                <span className="interactive-step-num">{String(index + 1).padStart(2, "0")}</span>
+                                <span>
+                                    <strong>{step.title}</strong>
+                                    <small>{step.description}</small>
+                                </span>
+                            </button>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -251,20 +245,54 @@ export default function HomePage() {
         {/*  Our Partners  */}
         <section className="section py-16 bg-white border-t border-gray-100">
             <div className="container">
-                <div className="text-center mb-10 reveal">
-                    <p className="text-sm font-bold text-[var(--muted)] tracking-widest uppercase">Trusted Ecosystem Partners</p>
-                </div>
-                <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16 reveal">
-                    <img src="/acolyte.png" alt="Acolyte Technologies" className="h-20 md:h-24 w-auto object-contain hover:scale-105 transition-transform duration-300" />
-                    <img src="/startupflora.png" alt="StartupFlora" className="h-20 md:h-24 w-auto object-contain hover:scale-105 transition-transform duration-300" />
-                    <img src="/mavics.svg" alt="Mavics Venture" className="h-14 md:h-16 w-auto object-contain hover:scale-105 transition-transform duration-300" />
-                    <img src="/projectvala.png" alt="ProjectVala" className="h-20 md:h-24 w-auto object-contain hover:scale-105 transition-transform duration-300" />
+                <div className="channel-partner reveal">
+                    <div className="channel-partner-logo">
+                        <img src="/mavics.svg" alt="Mavics Ventures" />
+                    </div>
+                    <div className="channel-partner-content">
+                        <div className="eyebrow"><span className="eyebrow-dot"></span>Our Channel Partner</div>
+                        <h2 className="section-title">Mavics <span className="hl">Ventures</span></h2>
+                        <p>Mavics Ventures Private Limited is a Jaipur-based enterprise established in 2021. The company operates in the retail segment, with a focus on household appliances, articles and equipment.</p>
+                        <p>As Citiline&apos;s channel partner, Mavics Ventures supports stronger market connections, business outreach and access to practical solutions for customers.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        {/*  Media Partner  */}
+        {/*  Citiline Ventures  */}
         <section className="section bg-gray-50/50">
+            <div className="container">
+                <div className="section-head reveal">
+                    <div className="eyebrow"><span className="eyebrow-dot"></span>Building for Bharat</div>
+                    <h2 className="section-title">Citiline <span className="hl">Ventures</span></h2>
+                    <p className="section-sub">Our growing portfolio of digital platforms and business initiatives.</p>
+                </div>
+                <div className="venture-marquee reveal w-full overflow-hidden" aria-label="Citiline Ventures">
+                    <div
+                        className="venture-marquee-track flex w-max"
+                        style={{ animation: "ventureMarqueeScroll 22s linear infinite" }}
+                    >
+                        {[0, 1].map((group) => (
+                            <div className="venture-logo-group flex shrink-0 items-center gap-16 pr-16 md:gap-28 md:pr-28" aria-hidden={group === 1} key={group}>
+                                <img src="/gpdelogo.png" alt={group === 0 ? "Gram Panchayat Digital Ecosystem" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <img src="/bizondeck-logo.png" alt={group === 0 ? "BizOnDeck" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <img src="/indiaproperty%20logo.png" alt={group === 0 ? "India Property To Let" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <img src="/uploymentlogo.jpeg" alt={group === 0 ? "Uployment" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <style jsx global>{`
+                    @keyframes ventureMarqueeScroll {
+                        from { transform: translateX(0); }
+                        to { transform: translateX(-50%); }
+                    }
+                `}</style>
+            </div>
+        </section>
+
+        {/*  Media Partner  */}
+        <section className="section">
             <div className="container">
                 <div className="section-head reveal">
                     <div className="eyebrow"><span className="eyebrow-dot"></span>In The News</div>
@@ -276,7 +304,7 @@ export default function HomePage() {
                         
                         {/* Logo Left */}
                         <div className="w-full md:w-2/5 flex justify-center md:justify-end pb-8 md:pb-0 md:pr-10">
-                            <a href="https://channel000.news" target="_blank" rel="noopener noreferrer" className="block hover:-translate-y-1 transition-transform duration-300">
+                            <a href="https://channel009.news" target="_blank" rel="noopener noreferrer" className="block hover:-translate-y-1 transition-transform duration-300">
                                 <img src="/channel009logo.png" alt="Channel 009 News" className="h-28 md:h-32 w-auto object-contain transition-transform duration-500 hover:scale-105" />
                             </a>
                         </div>

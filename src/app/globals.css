@@ -2769,6 +2769,102 @@ body {
                 margin-left: 0
             }
         }
+
+/* Homepage photographic hero — final overrides */
+.hero {
+    min-height: 100svh;
+    padding: 8rem 5% 4.5rem;
+    isolation: isolate;
+    background-image:
+        linear-gradient(90deg, rgba(5, 8, 10, .96) 0%, rgba(5, 8, 10, .86) 35%, rgba(5, 8, 10, .3) 68%, rgba(5, 8, 10, .12) 100%),
+        url('/hero-business-consulting.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero::before {
+    inset: 0;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, .18), transparent 35%, rgba(0, 0, 0, .38));
+    z-index: -1;
+}
+
+.hero-inner {
+    display: block;
+    max-width: 1180px;
+}
+
+.hero-content {
+    width: min(660px, 57%);
+}
+
+.hero .hero-badge {
+    color: #dceaff;
+    background: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .24);
+    backdrop-filter: blur(10px);
+}
+
+.hero .hero-title {
+    color: #fff;
+    text-shadow: 0 3px 24px rgba(0, 0, 0, .45);
+}
+
+.hero .hero-sub,
+.hero .hstat-label {
+    color: rgba(255, 255, 255, .78);
+}
+
+.hero .hero-stats {
+    gap: 1.8rem;
+    border-color: rgba(255, 255, 255, .2);
+}
+
+.hero .hstat-num {
+    background: none;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+}
+
+.hero .btn-outline {
+    color: #fff;
+    border-color: rgba(255, 255, 255, .58);
+    background: rgba(0, 0, 0, .16);
+    backdrop-filter: blur(8px);
+}
+
+@media(max-width:900px) {
+    .hero {
+        min-height: 100svh;
+        background-position: 64% center;
+        background-image:
+            linear-gradient(90deg, rgba(5, 8, 10, .96) 0%, rgba(5, 8, 10, .78) 72%, rgba(5, 8, 10, .5) 100%),
+            url('/hero-business-consulting.png');
+    }
+
+    .hero-content {
+        width: min(650px, 100%);
+    }
+}
+
+@media(max-width:600px) {
+    .hero {
+        padding: 7rem 5% 3.5rem;
+        background-position: 70% center;
+        background-image:
+            linear-gradient(90deg, rgba(5, 8, 10, .96), rgba(5, 8, 10, .75)),
+            url('/hero-business-consulting.png');
+    }
+
+    .hero .hero-stats {
+        gap: 1.25rem;
+        margin-top: 2.25rem;
+        padding-top: 1.5rem;
+    }
+}
     
 
 
@@ -19246,3 +19342,40 @@ body {
             }
         }
     
+
+/* Citiline Ventures marquee */
+@keyframes venture-marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.venture-marquee {
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.venture-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: venture-marquee-scroll 22s linear infinite;
+}
+
+.venture-logo-group {
+    display: flex;
+    align-items: center;
+    gap: clamp(3rem, 7vw, 7rem);
+    padding-right: clamp(3rem, 7vw, 7rem);
+}
+
+.venture-logo-group img {
+    width: auto;
+    height: clamp(4.5rem, 8vw, 6.5rem);
+    max-width: clamp(10rem, 20vw, 16rem);
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .venture-marquee-track { animation-play-state: paused; }
+}

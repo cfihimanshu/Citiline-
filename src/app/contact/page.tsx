@@ -7,7 +7,7 @@ export default function ContactPage() {
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             
-        <div className="page-banner">
+        <div className="page-banner page-banner-contact">
             <div className="breadcrumb"><a href="/" style={{"cursor":"pointer"}}>Home</a> › <span>Contact</span>
             </div>
             <h1>Let's Talk</h1>
@@ -83,6 +83,8 @@ export default function ContactPage() {
                                     <option>Cloud Infrastructure</option>
                                     <option>Software Development</option>
                                     <option>Cybersecurity</option>
+                                    <option>IT Consulting</option>
+                                    <option>Business Consultancy</option>
                                     <option>Debt Recovery &amp; Resolution</option>
                                     <option>Detective Agency Services</option>
                                     <option>Startup Administration</option>
@@ -93,6 +95,28 @@ export default function ContactPage() {
                             </div>
                             <button className="form-submit" >Send Message →</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section className="section section-alt office-visit-section">
+            <div className="container">
+                <div className="editorial-split editorial-split-reverse">
+                    <div className="editorial-copy reveal-left">
+                        <div className="eyebrow"><span className="eyebrow-dot"></span>Visit &amp; Collaborate</div>
+                        <h2 className="section-title">A Conversation Can Start Your <span className="hl">Next Growth Chapter</span></h2>
+                        <p>Meet our team in Jaipur or connect remotely. We work with startups, growing businesses and institutions across India and beyond.</p>
+                        <div className="contact-highlights">
+                            <span>Free initial consultation</span>
+                            <span>Business &amp; technology experts</span>
+                            <span>Response within 2 business hours</span>
+                        </div>
+                        <a className="btn btn-primary" href="mailto:rk@citiline.info">Email Our Team →</a>
+                    </div>
+                    <div className="editorial-image reveal-right">
+                        <img src="/contact-office.png" alt="A client being welcomed at the Citiline office" />
+                        <div className="image-note"><strong>Jaipur Headquarters</strong><span>Available Monday–Saturday</span></div>
                     </div>
                 </div>
             </div>

@@ -1,17 +1,17 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cloud, Monitor, Lock, BarChart, Scale, Building, Star } from 'lucide-react';
+import { Cloud, Monitor, Lock, BarChart, Scale, Building, Star, BriefcaseBusiness } from 'lucide-react';
 
 export default function ServicesPage() {
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             
-        <div className="page-banner">
+        <div className="page-banner page-banner-services">
             <div className="breadcrumb"><a href="/" style={{"cursor":"pointer"}}>Home</a> ›
                 <span>Services</span></div>
             <h1>Our Comprehensive Services</h1>
-            <p>From end-to-end technology solutions to authorized debt recovery and startup administration, we deliver measurable business results.
+            <p>From business strategy and technology solutions to authorized debt recovery and startup administration, we deliver measurable business results.
             </p>
         </div>
 
@@ -19,7 +19,7 @@ export default function ServicesPage() {
             <div className="container">
                 <div className="section-head reveal">
                     <div className="eyebrow"><span className="eyebrow-dot"></span>What We Offer</div>
-                    <h2 className="section-title">Full-Spectrum <span className="hl">Technology Services</span></h2>
+                    <h2 className="section-title">Full-Spectrum <span className="hl">Business &amp; Technology Services</span></h2>
                 </div>
                 <div className="grid-auto">
                     <div className="service-detail-card reveal">
@@ -152,6 +152,41 @@ export default function ServicesPage() {
                     </div>
                     <div className="service-detail-card reveal">
                         <div className="sdc-header">
+                            <div className="sdc-icon flex items-center justify-center"><BriefcaseBusiness size={28} /></div>
+                            <div className="sdc-name">Business Consultancy</div>
+                        </div>
+                        <div className="sdc-body">
+                            <p className="sdc-desc">Practical, insight-led advisory to help startups, SMEs, and growing enterprises launch confidently, improve performance, and scale sustainably.</p>
+                            <div className="sdc-features">
+                                <div className="sdc-feat">
+                                    <div className="sdc-feat-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></div>Business planning &amp; feasibility studies
+                                </div>
+                                <div className="sdc-feat">
+                                    <div className="sdc-feat-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></div>Market research &amp; competitive analysis
+                                </div>
+                                <div className="sdc-feat">
+                                    <div className="sdc-feat-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></div>Sales, marketing &amp; go-to-market strategy
+                                </div>
+                                <div className="sdc-feat">
+                                    <div className="sdc-feat-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></div>Financial planning, budgeting &amp; forecasting
+                                </div>
+                                <div className="sdc-feat">
+                                    <div className="sdc-feat-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></div>Business growth &amp; expansion strategy
+                                </div>
+                                <div className="sdc-feat">
+                                    <div className="sdc-feat-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></div>Operations &amp; process improvement
+                                </div>
+                                <div className="sdc-feat">
+                                    <div className="sdc-feat-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></div>Fundraising &amp; investor-readiness advisory
+                                </div>
+                                <div className="sdc-feat">
+                                    <div className="sdc-feat-dot"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></div>Franchise planning &amp; expansion consulting
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="service-detail-card reveal">
+                        <div className="sdc-header">
                             <div className="sdc-icon flex items-center justify-center"><Scale size={28} /></div>
                             <div className="sdc-name">Debt Recovery &amp; Resolution</div>
                         </div>
@@ -211,6 +246,28 @@ export default function ServicesPage() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section className="section service-showcase-section">
+            <div className="container">
+                <div className="editorial-split">
+                    <div className="editorial-image reveal-left">
+                        <img src="/services-workshop.png" alt="Citiline consultants presenting a business and technology roadmap" />
+                        <div className="image-note"><strong>One integrated team</strong><span>Strategy, technology and execution</span></div>
+                    </div>
+                    <div className="editorial-copy reveal-right">
+                        <div className="eyebrow"><span className="eyebrow-dot"></span>How We Work</div>
+                        <h2 className="section-title">From Ambition to <span className="hl">Measurable Outcomes</span></h2>
+                        <p>We begin with your business priorities, build a practical roadmap, and bring the right consulting and technology specialists together for delivery.</p>
+                        <div className="process-list">
+                            <div><span>01</span><strong>Discover</strong><p>Understand goals, challenges and opportunities.</p></div>
+                            <div><span>02</span><strong>Design</strong><p>Create a clear strategy, scope and success metrics.</p></div>
+                            <div><span>03</span><strong>Deliver</strong><p>Execute, measure and continuously improve.</p></div>
+                        </div>
+                        <a className="btn btn-primary" href="/contact">Discuss Your Requirement →</a>
                     </div>
                 </div>
             </div>

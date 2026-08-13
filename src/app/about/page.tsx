@@ -1,13 +1,13 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Building, Target, Lightbulb, Handshake, Zap } from 'lucide-react';
+import { Target, Lightbulb, Handshake, Zap } from 'lucide-react';
 
 export default function AboutPage() {
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             
-        <div className="page-banner">
+        <div className="page-banner page-banner-about">
             <div className="breadcrumb"><a href="/" style={{"cursor":"pointer"}}>Home</a> › <span>About
                     Us</span></div>
             <h1>About Citiline Technologies</h1>
@@ -19,8 +19,8 @@ export default function AboutPage() {
             <div className="container">
                 <div className="about-story">
                     <div className="reveal-left">
-                        <div className="about-img-block">
-                            <div className="about-img-icon flex items-center justify-center"><Building size={32} /></div>
+                        <div className="about-photo-card">
+                            <img src="/about-story-v2.png" alt="Citiline leadership team reviewing a strategic roadmap" />
                             <div className="about-img-badges">
                                 <div className="aib">
                                     <div className="aib-num">8+</div>
