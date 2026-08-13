@@ -1,9 +1,46 @@
 "use client";
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, Clock, CheckCircle } from 'lucide-react';
 
 export default function ContactPage() {
+    const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+    const [formError, setFormError] = useState("");
+
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        setFormStatus("submitting");
+        setFormError("");
+
+        const form = event.currentTarget;
+        const data = Object.fromEntries(new FormData(form).entries());
+        const query = new URLSearchParams(window.location.search);
+        Object.assign(data, {
+            sourcePage: window.location.pathname,
+            referrer: document.referrer,
+            utmSource: query.get("utm_source") || "",
+            utmMedium: query.get("utm_medium") || "",
+            utmCampaign: query.get("utm_campaign") || "",
+        });
+
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+
+            if (!response.ok) throw new Error(result.error || "Message could not be sent.");
+
+            form.reset();
+            setFormStatus("success");
+        } catch (error) {
+            setFormError(error instanceof Error ? error.message : "Message could not be sent.");
+            setFormStatus("error");
+        }
+    }
+
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             
@@ -64,21 +101,21 @@ export default function ContactPage() {
                         <h3 className="form-title">Send Us a Message</h3>
                         <p className="form-sub">Fill in the details below and our team will get back to you within 24 hours.
                         </p>
-                        <div className="form-success flex items-center gap-2" id="form-success"><CheckCircle size={20} /> Thank you! Your message has been sent. We'll get
-                            back to you within 24 hours.</div>
-                        <div id="contact-form-fields">
+                        {formStatus === "success" && <div className="form-success flex items-center gap-2" style={{ display: "flex" }}><CheckCircle size={20} /> Thank you! Your message has been saved. We&apos;ll get back to you within 24 hours.</div>}
+                        {formStatus === "error" && <div role="alert" className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{formError}</div>}
+                        <form id="contact-form-fields" onSubmit={handleSubmit}>
                             <div className="form-row">
-                                <div className="form-group"><label className="form-label">First Name *</label><input className="form-input" type="text" placeholder="Rahul" /></div>
-                                <div className="form-group"><label className="form-label">Last Name *</label><input className="form-input" type="text" placeholder="Sharma" /></div>
+                                <div className="form-group"><label className="form-label" htmlFor="firstName">First Name *</label><input id="firstName" name="firstName" className="form-input" type="text" placeholder="Rahul" required maxLength={80} /></div>
+                                <div className="form-group"><label className="form-label" htmlFor="lastName">Last Name *</label><input id="lastName" name="lastName" className="form-input" type="text" placeholder="Sharma" required maxLength={80} /></div>
                             </div>
                             <div className="form-row">
-                                <div className="form-group"><label className="form-label">Email Address *</label><input className="form-input" type="email" placeholder="rahul@company.com" /></div>
-                                <div className="form-group"><label className="form-label">Phone Number</label><input className="form-input" type="tel" placeholder="+91 98765 43210" /></div>
+                                <div className="form-group"><label className="form-label" htmlFor="email">Email Address *</label><input id="email" name="email" className="form-input" type="email" placeholder="rahul@company.com" required maxLength={160} /></div>
+                                <div className="form-group"><label className="form-label" htmlFor="phone">Phone Number</label><input id="phone" name="phone" className="form-input" type="tel" placeholder="+91 98765 43210" maxLength={30} /></div>
                             </div>
-                            <div className="form-group"><label className="form-label">Company Name</label><input className="form-input" type="text" placeholder="Your Company Pvt. Ltd." /></div>
+                            <div className="form-group"><label className="form-label" htmlFor="company">Company Name</label><input id="company" name="company" className="form-input" type="text" placeholder="Your Company Pvt. Ltd." maxLength={160} /></div>
                             <div className="form-group">
-                                <label className="form-label">Service Required</label>
-                                <select className="form-select">
+                                <label className="form-label" htmlFor="service">Service Required</label>
+                                <select id="service" name="service" className="form-select">
                                     <option value="">Select a service...</option>
                                     <option>Cloud Infrastructure</option>
                                     <option>Software Development</option>
@@ -91,10 +128,11 @@ export default function ContactPage() {
                                     <option>Other</option>
                                 </select>
                             </div>
-                            <div className="form-group"><label className="form-label">Your Message *</label><textarea className="form-textarea" placeholder="Tell us about your project, requirements, or challenges..."></textarea>
+                            <div className="form-group"><label className="form-label" htmlFor="message">Your Message *</label><textarea id="message" name="message" className="form-textarea" placeholder="Tell us about your project, requirements, or challenges..." required maxLength={3000}></textarea>
                             </div>
-                            <button className="form-submit" >Send Message →</button>
-                        </div>
+                            <input name="website" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+                            <button className="form-submit" type="submit" disabled={formStatus === "submitting"}>{formStatus === "submitting" ? "Sending…" : "Send Message →"}</button>
+                        </form>
                     </div>
                 </div>
             </div>

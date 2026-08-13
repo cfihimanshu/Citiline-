@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import ScrollObserver from "@/components/ScrollObserver";
 import BgParticles from "@/components/BgParticles";
 import CustomCursor from "@/components/CustomCursor";
+import LeadPopup from "@/components/LeadPopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <LeadPopup />
       </body>
     </html>
   );
