@@ -64,6 +64,7 @@ export default function Footer() {
           <p>
             © 2025 <span className="accent">Citiline Technologies Pvt. Ltd.</span> All rights reserved.
           </p>
+          <p className="footer-powered">Powered by Bharat Pahchan</p>
           <p>Privacy Policy &nbsp;|&nbsp; Terms of Service &nbsp;|&nbsp; CIN: U93096MH2016PTC282402</p>
         </div>
       </div>

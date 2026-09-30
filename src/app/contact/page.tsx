@@ -17,6 +17,7 @@ export default function ContactPage() {
         const query = new URLSearchParams(window.location.search);
         Object.assign(data, {
             sourcePage: window.location.pathname,
+            leadSource: "Citiline Contact Page Form",
             referrer: document.referrer,
             utmSource: query.get("utm_source") || "",
             utmMedium: query.get("utm_medium") || "",

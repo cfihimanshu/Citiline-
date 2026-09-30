@@ -98,56 +98,70 @@ export default function HomePage() {
         <TechTicker />
 
         {/*  Services  */}
-        <section className="section section-alt">
+        <section className="section section-alt services-showcase">
             <div className="container">
                 <div className="section-head reveal">
                     <div className="eyebrow"><span className="eyebrow-dot"></span>Our Expertise</div>
                     <h2 className="section-title">Comprehensive <span className="hl">Business &amp; IT Services</span></h2>
                     <p className="section-sub">We combine business strategy and technology expertise to help organizations launch, optimize, and scale.</p>
                 </div>
-                <div className="grid-auto">
-                    <div className="card reveal">
+                <div className="services-grid">
+                    <div className="card service-card service-card-featured reveal">
                         <div className="svc-icon flex items-center justify-center"><span><Cloud size={24} /></span></div>
+                        <div className="service-kicker">CloudOps</div>
                         <h3 className="svc-title">Cloud Infrastructure</h3>
                         <p className="svc-desc">Scalable cloud architecture on AWS, Azure &amp; GCP. Migration, optimization,
-                            and 24/7 managed services.</p><a className="svc-link" href="/services">Learn more
+                            and 24/7 managed services.</p>
+                        <div className="service-meta"><span>AWS</span><span>Azure</span><span>GCP</span></div><a className="svc-link" href="/services">Learn more
                             →</a>
                     </div>
-                    <div className="card reveal">
+                    <div className="card service-card reveal">
                         <div className="svc-icon flex items-center justify-center"><span><Monitor size={24} /></span></div>
+                        <div className="service-kicker">Product Engineering</div>
                         <h3 className="svc-title">Software Development</h3>
                         <p className="svc-desc">Custom web, mobile, and enterprise applications built with modern stacks —
-                            from MVP to production.</p><a className="svc-link" href="/services">Learn more
+                            from MVP to production.</p>
+                        <div className="service-meta"><span>Web</span><span>Mobile</span><span>Enterprise</span></div><a className="svc-link" href="/services">Learn more
                             →</a>
                     </div>
-                    <div className="card reveal">
+                    <div className="card service-card reveal">
                         <div className="svc-icon flex items-center justify-center"><span><Lock size={24} /></span></div>
+                        <div className="service-kicker">Risk Defense</div>
                         <h3 className="svc-title">Cybersecurity</h3>
                         <p className="svc-desc">End-to-end security audits, penetration testing, compliance frameworks, and
-                            real-time threat monitoring.</p><a className="svc-link" href="/services">Learn
+                            real-time threat monitoring.</p>
+                        <div className="service-meta"><span>Audit</span><span>VAPT</span><span>Compliance</span></div><a className="svc-link" href="/services">Learn
                             more →</a>
                     </div>
-                    <div className="card reveal">
+                    <div className="card service-card reveal">
                         <div className="svc-icon flex items-center justify-center"><span><BarChart size={24} /></span></div>
+                        <div className="service-kicker">Strategy</div>
                         <h3 className="svc-title">IT Consulting</h3>
                         <p className="svc-desc">Strategic technology advisory and digital transformation roadmaps aligned to
-                            your business goals.</p><a className="svc-link" href="/services">Learn more →</a>
+                            your business goals.</p>
+                        <div className="service-meta"><span>Roadmap</span><span>Process</span><span>Scale</span></div><a className="svc-link" href="/services">Learn more →</a>
                     </div>
-                    <div className="card reveal">
+                    <div className="card service-card reveal">
                         <div className="svc-icon flex items-center justify-center"><span><BriefcaseBusiness size={24} /></span></div>
+                        <div className="service-kicker">Growth Advisory</div>
                         <h3 className="svc-title">Business Consultancy</h3>
-                        <p className="svc-desc">Business plans, market research, growth strategy, financial planning, process improvement, fundraising readiness, and franchise advisory.</p><a className="svc-link" href="/services">Learn more →</a>
+                        <p className="svc-desc">Business plans, market research, growth strategy, financial planning, process improvement, fundraising readiness, and franchise advisory.</p>
+                        <div className="service-meta"><span>Plans</span><span>Research</span><span>Funding</span></div><a className="svc-link" href="/services">Learn more →</a>
                     </div>
-                    <div className="card reveal">
+                    <div className="card service-card reveal">
                         <div className="svc-icon flex items-center justify-center"><span><Scale size={24} /></span></div>
+                        <div className="service-kicker">Resolution</div>
                         <h3 className="svc-title">Debt Recovery &amp; Resolution</h3>
-                        <p className="svc-desc">Authorized Recovery &amp; Detective Agency for top banks. Expertise in SARFAESI execution, asset seizure, and debt resolution.</p><a className="svc-link" href="/services">Learn more
+                        <p className="svc-desc">Authorized Recovery &amp; Detective Agency for top banks. Expertise in SARFAESI execution, asset seizure, and debt resolution.</p>
+                        <div className="service-meta"><span>Banks</span><span>SARFAESI</span><span>Assets</span></div><a className="svc-link" href="/services">Learn more
                             →</a>
                     </div>
-                    <div className="card reveal">
+                    <div className="card service-card reveal">
                         <div className="svc-icon flex items-center justify-center"><span><Building size={24} /></span></div>
+                        <div className="service-kicker">Business Setup</div>
                         <h3 className="svc-title">Startup Administration</h3>
-                        <p className="svc-desc">End-to-end business services including virtual office space, trademark registration, and legal compliance consulting.</p><a className="svc-link" href="/services">Learn more
+                        <p className="svc-desc">End-to-end business services including virtual office space, trademark registration, and legal compliance consulting.</p>
+                        <div className="service-meta"><span>Virtual Office</span><span>Trademark</span><span>Legal</span></div><a className="svc-link" href="/services">Learn more
                             →</a>
                     </div>
                 </div>

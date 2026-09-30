@@ -2775,9 +2775,7 @@ body {
     min-height: 100svh;
     padding: 8rem 5% 4.5rem;
     isolation: isolate;
-    background-image:
-        linear-gradient(90deg, rgba(5, 8, 10, .96) 0%, rgba(5, 8, 10, .86) 35%, rgba(5, 8, 10, .3) 68%, rgba(5, 8, 10, .12) 100%),
-        url('/hero-business-consulting.png');
+    background-image: url('/ChatGPT इमेज 25 सित॰ 2026, 11_38_36 am.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2788,7 +2786,7 @@ body {
     width: auto;
     height: auto;
     border-radius: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, .18), transparent 35%, rgba(0, 0, 0, .38));
+    background: transparent;
     z-index: -1;
 }
 
@@ -2802,37 +2800,37 @@ body {
 }
 
 .hero .hero-badge {
-    color: #dceaff;
-    background: rgba(255, 255, 255, .1);
-    border-color: rgba(255, 255, 255, .24);
+    color: #0f1e45;
+    background: rgba(255, 255, 255, .58);
+    border-color: rgba(26, 86, 219, .2);
     backdrop-filter: blur(10px);
 }
 
 .hero .hero-title {
-    color: #fff;
-    text-shadow: 0 3px 24px rgba(0, 0, 0, .45);
+    color: #0f1e45;
+    text-shadow: 0 2px 18px rgba(255, 255, 255, .78);
 }
 
 .hero .hero-sub,
 .hero .hstat-label {
-    color: rgba(255, 255, 255, .78);
+    color: rgba(15, 30, 69, .82);
 }
 
 .hero .hero-stats {
     gap: 1.8rem;
-    border-color: rgba(255, 255, 255, .2);
+    border-color: rgba(15, 30, 69, .14);
 }
 
 .hero .hstat-num {
     background: none;
-    color: #fff;
-    -webkit-text-fill-color: #fff;
+    color: #0f1e45;
+    -webkit-text-fill-color: #0f1e45;
 }
 
 .hero .btn-outline {
-    color: #fff;
-    border-color: rgba(255, 255, 255, .58);
-    background: rgba(0, 0, 0, .16);
+    color: #0f1e45;
+    border-color: rgba(15, 30, 69, .28);
+    background: rgba(255, 255, 255, .62);
     backdrop-filter: blur(8px);
 }
 
@@ -2840,9 +2838,7 @@ body {
     .hero {
         min-height: 100svh;
         background-position: 64% center;
-        background-image:
-            linear-gradient(90deg, rgba(5, 8, 10, .96) 0%, rgba(5, 8, 10, .78) 72%, rgba(5, 8, 10, .5) 100%),
-            url('/hero-business-consulting.png');
+        background-image: url('/ChatGPT इमेज 25 सित॰ 2026, 11_38_36 am.png');
     }
 
     .hero-content {
@@ -2854,9 +2850,7 @@ body {
     .hero {
         padding: 7rem 5% 3.5rem;
         background-position: 70% center;
-        background-image:
-            linear-gradient(90deg, rgba(5, 8, 10, .96), rgba(5, 8, 10, .75)),
-            url('/hero-business-consulting.png');
+        background-image: url('/ChatGPT इमेज 25 सित॰ 2026, 11_38_36 am.png');
     }
 
     .hero .hero-stats {
@@ -19378,4 +19372,15 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
     .venture-marquee-track { animation-play-state: paused; }
+}
+
+/* Prominent verification credit */
+.footer-bottom .footer-powered {
+    flex: 0 0 100%;
+    order: -1;
+    text-align: center;
+    font-size: clamp(1.1rem, 1vw, 1.2rem);
+    /* line-height: 1; */
+    font-weight: 200;
+    color: #fff;
 }
