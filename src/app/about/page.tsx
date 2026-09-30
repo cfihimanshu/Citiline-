@@ -1,5 +1,7 @@
 "use client";
 import React from 'react';
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from 'framer-motion';
 import { Target, Lightbulb, Handshake, Zap } from 'lucide-react';
 
@@ -8,7 +10,7 @@ export default function AboutPage() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             
         <div className="page-banner page-banner-about">
-            <div className="breadcrumb"><a href="/" style={{"cursor":"pointer"}}>Home</a> › <span>About
+            <div className="breadcrumb"><Link href="/" style={{"cursor":"pointer"}}>Home</Link> › <span>About
                     Us</span></div>
             <h1>About Citiline Technologies</h1>
             <p>Built on trust, driven by innovation. We are your dedicated technology partner for digital
@@ -20,7 +22,7 @@ export default function AboutPage() {
                 <div className="about-story">
                     <div className="reveal-left">
                         <div className="about-photo-card">
-                            <img src="/about-story-v2.png" alt="Citiline leadership team reviewing a strategic roadmap" />
+                            <Image src="/about-story-v2.png" alt="Citiline leadership team reviewing a strategic roadmap" fill sizes="(max-width: 900px) 90vw, 50vw" />
                             <div className="about-img-badges">
                                 <div className="aib">
                                     <div className="aib-num">8+</div>
@@ -75,7 +77,7 @@ export default function AboutPage() {
                     <div className="value-card reveal">
                         <div className="value-icon flex items-center justify-center"><Lightbulb size={32} /></div>
                         <h3 className="value-title">Innovation</h3>
-                        <p className="value-desc">We stay ahead of the technology curve so our clients don't have to —
+                        <p className="value-desc">We stay ahead of the technology curve so our clients don&apos;t have to —
                             continuously learning and adopting what works best.</p>
                     </div>
                     <div className="value-card reveal">
@@ -171,7 +173,7 @@ export default function AboutPage() {
                 <div className="section-head reveal">
                     <div className="eyebrow"><span className="eyebrow-dot"></span>Our Expertise</div>
                     <h2 className="section-title">Technology <span className="hl">Proficiency</span></h2>
-                    <p className="section-sub">Our team's skill depth across the domains that matter most to our clients.
+                    <p className="section-sub">Our team&apos;s skill depth across the domains that matter most to our clients.
                     </p>
                 </div>
                 <div style={{"display":"grid","gridTemplateColumns":"1fr 1fr","gap":"3rem","maxWidth":"860px","margin":"0 auto"}} className="reveal">

@@ -1,5 +1,7 @@
 "use client";
 import React from 'react';
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from 'framer-motion';
 import { Cloud, Monitor, Lock, BarChart, Scale, Building, Star, BriefcaseBusiness } from 'lucide-react';
 
@@ -8,7 +10,7 @@ export default function ServicesPage() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             
         <div className="page-banner page-banner-services">
-            <div className="breadcrumb"><a href="/" style={{"cursor":"pointer"}}>Home</a> ›
+            <div className="breadcrumb"><Link href="/" style={{"cursor":"pointer"}}>Home</Link> ›
                 <span>Services</span></div>
             <h1>Our Comprehensive Services</h1>
             <p>From business strategy and technology solutions to authorized debt recovery and startup administration, we deliver measurable business results.
@@ -255,7 +257,7 @@ export default function ServicesPage() {
             <div className="container">
                 <div className="editorial-split">
                     <div className="editorial-image reveal-left">
-                        <img src="/services-workshop.png" alt="Citiline consultants presenting a business and technology roadmap" />
+                        <Image src="/services-workshop.png" alt="Citiline consultants presenting a business and technology roadmap" fill sizes="(max-width: 900px) 90vw, 50vw" />
                         <div className="image-note"><strong>One integrated team</strong><span>Strategy, technology and execution</span></div>
                     </div>
                     <div className="editorial-copy reveal-right">

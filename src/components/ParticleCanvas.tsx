@@ -1,6 +1,15 @@
 "use client";
 import { useEffect, useRef } from "react";
 
+type Particle = {
+  x: number;
+  y: number;
+  r: number;
+  dx: number;
+  dy: number;
+  c: string;
+};
+
 export default function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -12,7 +21,7 @@ export default function ParticleCanvas() {
 
     let width = 0;
     let height = 0;
-    let particles: any[] = [];
+    let particles: Particle[] = [];
     let animationFrameId: number;
 
     function init() {

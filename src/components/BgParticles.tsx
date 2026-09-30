@@ -1,6 +1,15 @@
 "use client";
 import { useEffect, useRef } from "react";
 
+type Dot = {
+  x: number;
+  y: number;
+  r: number;
+  vx: number;
+  vy: number;
+  o: number;
+};
+
 export default function BgParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -12,7 +21,7 @@ export default function BgParticles() {
 
     let W = 0;
     let H = 0;
-    let dots: any[] = [];
+    let dots: Dot[] = [];
     let animationFrameId: number;
 
     function resize() {

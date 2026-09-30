@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Image from "next/image";
 import { motion } from 'framer-motion';
 import TechTicker from "@/components/TechTicker";
 import TypeWriter from "@/components/TypeWriter";
@@ -177,14 +178,15 @@ export default function HomePage() {
                 </div>
                 <div className="interactive-why reveal">
                     <div className="interactive-why-image">
-                        <motion.img
+                        <motion.div
                             key={whySteps[activeWhyStep].image}
-                            src={whySteps[activeWhyStep].image}
-                            alt={whySteps[activeWhyStep].alt}
                             initial={{ opacity: 0, scale: 1.03 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.35 }}
-                        />
+                            style={{ position: "absolute", inset: 0 }}
+                        >
+                            <Image src={whySteps[activeWhyStep].image} alt={whySteps[activeWhyStep].alt} fill sizes="(max-width: 900px) 90vw, 50vw" />
+                        </motion.div>
                     </div>
                     <div className="interactive-why-steps">
                         {whySteps.map((step, index) => (
@@ -218,8 +220,8 @@ export default function HomePage() {
                 <div className="grid-3">
                     <div className="card testi-card reveal">
                         <div className="testi-stars">★★★★★</div>
-                        <p className="testi-text">"Citiline transformed our entire IT infrastructure. Their cloud migration
-                            was flawless and our operational costs dropped by 40%."</p>
+                        <p className="testi-text">“Citiline transformed our entire IT infrastructure. Their cloud migration
+                            was flawless and our operational costs dropped by 40%.“</p>
                         <div className="testi-author">
                             <div className="testi-avatar">RK</div>
                             <div>
@@ -230,8 +232,8 @@ export default function HomePage() {
                     </div>
                     <div className="card testi-card reveal">
                         <div className="testi-stars">★★★★★</div>
-                        <p className="testi-text">"Their consulting team helped us define a 3-year digital roadmap. The
-                            strategic clarity we gained was truly invaluable."</p>
+                        <p className="testi-text">“Their consulting team helped us define a 3-year digital roadmap. The
+                            strategic clarity we gained was truly invaluable.“</p>
                         <div className="testi-author">
                             <div className="testi-avatar">PM</div>
                             <div>
@@ -242,8 +244,8 @@ export default function HomePage() {
                     </div>
                     <div className="card testi-card reveal">
                         <div className="testi-stars">★★★★★</div>
-                        <p className="testi-text">"The custom ERP Citiline built handles 10x our previous volume — delivered
-                            on time and within budget. Exceptional work."</p>
+                        <p className="testi-text">“The custom ERP Citiline built handles 10x our previous volume — delivered
+                            on time and within budget. Exceptional work.“</p>
                         <div className="testi-author">
                             <div className="testi-avatar">AS</div>
                             <div>
@@ -261,7 +263,7 @@ export default function HomePage() {
             <div className="container">
                 <div className="channel-partner reveal">
                     <div className="channel-partner-logo">
-                        <img src="/mavics.svg" alt="Mavics Ventures" />
+                        <Image src="/mavics.svg" alt="Mavics Ventures" width={200} height={60} />
                     </div>
                     <div className="channel-partner-content">
                         <div className="eyebrow"><span className="eyebrow-dot"></span>Our Channel Partner</div>
@@ -288,12 +290,12 @@ export default function HomePage() {
                     >
                         {[0, 1].map((group) => (
                             <div className="venture-logo-group flex shrink-0 items-center gap-16 pr-16 md:gap-28 md:pr-28" aria-hidden={group === 1} key={group}>
-                                <img src="/gpdelogo.png" alt={group === 0 ? "Gram Panchayat Digital Ecosystem" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
-                                <img src="/bizondeck-logo.png" alt={group === 0 ? "BizOnDeck" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
-                                <img src="/indiaproperty%20logo.png" alt={group === 0 ? "India Property To Let" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
-                                <img src="/uploymentlogo.jpeg" alt={group === 0 ? "Uployment" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
-                                <img src="/startupkare.png" alt={group === 0 ? "StartupKare" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
-                                <img src="/msmelaunchpad.png" alt={group === 0 ? "MSME Launchpad" : ""} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <Image src="/gpdelogo.png" alt={group === 0 ? "Gram Panchayat Digital Ecosystem" : ""} width={1960} height={802} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <Image src="/bizondeck-logo.png" alt={group === 0 ? "BizOnDeck" : ""} width={400} height={126} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <Image src="/indiaproperty%20logo.png" alt={group === 0 ? "India Property To Let" : ""} width={652} height={383} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <Image src="/uploymentlogo.jpeg" alt={group === 0 ? "Uployment" : ""} width={150} height={118} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <Image src="/startupkare.png" alt={group === 0 ? "StartupKare" : ""} width={256} height={56} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
+                                <Image src="/msmelaunchpad.png" alt={group === 0 ? "MSME Launchpad" : ""} width={1024} height={732} className="h-20 w-52 shrink-0 object-contain md:h-24 md:w-64" />
                             </div>
                         ))}
                     </div>
@@ -321,7 +323,7 @@ export default function HomePage() {
                         {/* Logo Left */}
                         <div className="w-full md:w-2/5 flex justify-center md:justify-end pb-8 md:pb-0 md:pr-10">
                             <a href="https://channel009.news" target="_blank" rel="noopener noreferrer" className="block hover:-translate-y-1 transition-transform duration-300">
-                                <img src="/channel009logo.png" alt="Channel 009 News" className="h-28 md:h-32 w-auto object-contain transition-transform duration-500 hover:scale-105" />
+                                <Image src="/channel009logo.png" alt="Channel 009 News" width={662} height={377} className="h-28 md:h-32 w-auto object-contain transition-transform duration-500 hover:scale-105" />
                             </a>
                         </div>
                         

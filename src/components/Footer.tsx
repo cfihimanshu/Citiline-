@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Building, MapPin, Mail, Phone, Clock } from 'lucide-react';
 export default function Footer() {
   return (
@@ -7,7 +8,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link href="/" className="nav-logo block mb-6" style={{ cursor: "pointer" }}>
-              <img src="/citilinelogo.png" alt="Citiline Technologies Logo" className="h-14 md:h-16 w-auto object-contain hover:scale-105 transition-transform duration-300" />
+              <Image src="/citilinelogo.png" alt="Citiline Technologies Logo" width={1821} height={864} className="h-14 md:h-16 w-auto object-contain hover:scale-105 transition-transform duration-300" />
             </Link>
             <p>
               Driving digital transformation through innovative IT solutions and

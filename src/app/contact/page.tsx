@@ -1,5 +1,7 @@
 "use client";
 import React, { FormEvent, useState } from 'react';
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, Clock, CheckCircle } from 'lucide-react';
 
@@ -46,9 +48,9 @@ export default function ContactPage() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             
         <div className="page-banner page-banner-contact">
-            <div className="breadcrumb"><a href="/" style={{"cursor":"pointer"}}>Home</a> › <span>Contact</span>
+            <div className="breadcrumb"><Link href="/" style={{"cursor":"pointer"}}>Home</Link> › <span>Contact</span>
             </div>
-            <h1>Let's Talk</h1>
+            <h1>Let&apos;s Talk</h1>
             <p>Get in touch for a free consultation. We typically respond within 2 business hours.</p>
         </div>
         <section className="section">
@@ -57,7 +59,7 @@ export default function ContactPage() {
                     <div>
                         <div className="contact-info-card reveal-left">
                             <h3 className="ci-title">Citiline Technologies Pvt. Ltd.</h3>
-                            <p className="ci-sub">We'd love to understand your challenge and share how we can help. Reach
+                            <p className="ci-sub">We&apos;d love to understand your challenge and share how we can help. Reach
                                 out via any channel below.</p>
                             <div className="ci-item">
                                 <div className="ci-icon flex items-center justify-center"><MapPin size={24} /></div>
@@ -154,7 +156,7 @@ export default function ContactPage() {
                         <a className="btn btn-primary" href="mailto:rk@citiline.info">Email Our Team →</a>
                     </div>
                     <div className="editorial-image reveal-right">
-                        <img src="/contact-office.png" alt="A client being welcomed at the Citiline office" />
+                        <Image src="/contact-office.png" alt="A client being welcomed at the Citiline office" fill sizes="(max-width: 900px) 90vw, 50vw" />
                         <div className="image-note"><strong>Jaipur Headquarters</strong><span>Available Monday–Saturday</span></div>
                     </div>
                 </div>

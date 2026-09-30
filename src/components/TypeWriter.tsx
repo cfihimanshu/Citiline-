@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 
+const words = ["Cloud Solutions", "AI/ML Experts", "Cybersecurity", "Modern Software"];
+
 export default function TypeWriter() {
-  const words = ["Cloud Solutions", "AI/ML Experts", "Cybersecurity", "Modern Software"];
   const [currentWord, setCurrentWord] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
@@ -31,7 +32,7 @@ export default function TypeWriter() {
 
     const timer = setTimeout(handleType, typingSpeed);
     return () => clearTimeout(timer);
-  }, [currentWord, isDeleting, loopNum, typingSpeed, words]);
+  }, [currentWord, isDeleting, loopNum, typingSpeed]);
 
   return (
     <span id="typed-wrap">
